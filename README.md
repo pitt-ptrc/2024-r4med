@@ -1,19 +1,19 @@
-# APIs and web scraping with R
+# R for Medical Research
 
-**Andrew Heiss**  
-Andrew Young School of Policy Studies  
-Georgia State University  
-[andrewheiss.com](https://www.andrewheiss.com) • [\@andrewheiss](https://twitter.com/andrewheiss)
+**Matthew Broerman**  
+Pulmonary Translational Research Core
+Pulmonary, Allergy, Critical Care and Sleep Medicine
+Department of Medicine
+University of Pittsburgh
+[PTRC](https://paccm.pitt.edu/ptrc/index.html)
 
 ---
 
-One session for [SEACEN's](https://www.seacen.org/) September 2022 online course on ["Data Analytics for Macroeconomic Surveillance"](https://www.seacen.org/event_details.php?id=55&eventcode=674)  
-September 12, 2022  
-Manila, Philippines (held online)
+Eight week workshop, February 2024, for the basics of modern medical research in R. 
 
 ## Materials
 
-Access all the slides and course materials at <https://talks.andrewheiss.com/2022-seacen/>.
+Access all the slides and course materials at <https://r4med-paccsm.netlify.app/>.
 
 ## License
 
