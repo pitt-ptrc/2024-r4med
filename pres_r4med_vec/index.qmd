@@ -1,0 +1,416 @@
+---
+title: "R for Stata Users 2"
+subtitle: "Vector Manipulation"
+author: "Matt Broerman"
+date: "October 10, 2022"
+format:
+  revealjs: 
+    slide-number: true
+    preview-links: auto
+    theme: [simple, custom.scss]
+execute:
+  echo: true
+---
+
+```{r include=FALSE}
+library(tidyverse)
+```
+
+# Pregame
+
+## Disclaimer
+
+::: callout-note
+The side-by-side comparisons in these slides are due to Matthieu Gomez and his beautiful [resources](https://www.matthieugomez.com/statar/). In most cases, I cannot translate from `Stata` to `R` for you, but I can try to tell you how to do it in `R`. If you know how to do it in Stata, please tell us!
+:::
+
+# Summarize (collapse)
+
+## Create Data
+
+Recall this data from last time.
+
+```{r}
+df <- tibble(
+  id = c("id01", "id02", "id03", "id01", "id02", "id03"),     
+  v1 = rep(c("M", "F", "M"), 2),                          
+  v2 = seq(0, 10, by = 2) 
+)
+
+df
+```
+
+
+## Basics
+
+|                        |       |                                                                  |
+|-------------------|-------------------|----------------------------------|
+| To apply each function | Stata | `collapse (mean) v1 (sd) v2`                                     |
+|                        | dplyr | `df %>% summarize(mean(v1, na.rm = TRUE), sd(v2, na.rm = TRUE))` |
+| multiple columns       | Stata | `collapse (mean) v1 (sd) v2`                                     |
+|                        | dplyr | `df %>% summarize(mean(v1, na.rm = TRUE), sd(v2, na.rm = TRUE))` |
+| By group               | Stata | `collapse (mean) v1 (sd) v2, by(id)`                             |
+|                        | dplyr | `df %\>% group_by(id) %>% summarize(mean(v1), sd(v2))`           |
+
+Note: we will discuss `group_by()` more later.
+
+## Demo
+
+::::{.columns}
+:::{.column width="30%"}
+
+```{r}
+df
+```
+:::
+:::{.column width="70%"}
+```{r}
+df |> 
+  summarize(avg = mean(v2, na.rm = TRUE))
+df |> 
+  group_by(v1) |> 
+  summarise(average = mean(v2, na.rm = TRUE))
+df |> 
+  group_by(id) |> 
+  summarise(mean = mean(v2, na.rm = TRUE))
+```
+:::
+::::
+
+# Filter
+
+## Basics
+
+|                          |       |                                            |
+|-------------------|-------------------|----------------------------------|
+| using logical conditions | Stata | `keep if v1 >= 2`                          |
+|                          | dplyr | `df %>% filter(v1 >= 2)`                   |
+| based on their position  | Stata | `keep if _n <= 100`                        |
+|                          | dplyr | `df %>% filter(row_number() <= 100)`       |
+| `inlist` is `%in%`       | Stata | `keep if inlist(id, "id01", "id02")`       |
+|                          | dplyr | `df %>% filter(id %in% c("id01", "id02"))` |
+| `inrange` is `between`   | Stata | `keep if inrange(v1, 3, 5)`                |
+|                          | dplyr | `df %>% filter(between(v2, 3, 5))`         |
+| empty rows               | Stata | `keep if inrange(v1, 3, 5)`                |
+|                          | dplyr | `df %>% filter(is.na(v1))`                 |
+
+## Demo
+
+```{r}
+df |> 
+  filter(v1 == "M")
+
+df %>% filter(id %in% c("id01", "id02"))
+```
+
+
+## Advanced
+
+|                    |       |                                          |
+|--------------------|-------|------------------------------------------|
+| distinct rows      | Stata | `duplicates drop v1 v2, force`           |
+|                    | dplyr | `distinct(df, v1, v2)`                   |
+| but keep the rest  | Stata | `bysort ID:keep if _n>1`                                      |
+|                    | dplyr | `distinct(df, v1, v2, .keep = TRUE)`     |
+| look at dupes      | Stata | `bysort ID:keep if _n==1`                                     |
+|                    | dplyr | `df %>% group_by(ID) |> filter(n() > 1)` |
+| count combinations | Stata | `distinct v1 v2, joint`                  |
+|                    | dplyr | `df %>% group_by(v1, v2) %>% n_groups()` |
+| empty rows         | Stata | `keep if inrange(v1, 3, 5)`              |
+|                    | dplyr | `df %>% filter(is.na(v1))`               |
+
+## Demo
+
+```{r}
+df |> filter(str_detect(id, "03"))
+
+
+df_mod <- df
+df_mod$v1[4:6] <- NA
+
+df_mod |> filter(is.na(v1))
+```
+
+# Counting
+
+> "Half of data science is counting" - Hadley Wickham
+
+## Basic
+
+Getting good at counting is a superpower.
+
+```{r}
+df |> 
+  count(v1)
+
+df |> 
+  count(v1, sort = TRUE)
+```
+
+## Double up
+
+Surprisingly often, you want to count on counts. But this comes in with big datasets. More later.
+```{r}
+df
+
+df |> 
+  count(id) |> 
+  count(n)
+```
+
+## Example
+
+This dataset is kinda small, but already hard to make sense of. 
+
+With counting, right away, we know that cars with gear 3 and cylinder 8 dominate.
+
+```{r}
+mtcars |> head(4)
+
+mtcars |> 
+  tibble() |> 
+  count(gear, cyl)
+```
+
+
+# Vector Manipulation
+
+## Basics 
+
+"Vector" can mean a lot of things. Here I mean just an ordered list of things that may repeat, usually all numbers, all characters, or all dates.
+
+```{r}
+(v1 <- c("1", "2", "3"))
+(v2 <- c("a", "b", "c"))
+(v3 <- c(1, 2, 3))
+(v4 <- list("1", "2", "3"))
+```
+
+Usually we mean `v1`, `v2`, `v3`. In `R`, lists are very important, but more general, and so good for doing complex things to complex objects. For another day!
+
+## Uses
+
+A vector can have names, and you can do math on them.
+
+```{r}
+names(v3) <- v2
+v3
+
+mean(v3)
+```
+
+Vectors of equal length make up a `tibble` or `data.frame`. Then we don't care about the names.
+
+```{r}
+df <- tibble(v1, v2, v3)
+df
+```
+
+Notice that `v1` and `v3` are different types.
+
+## Load Data
+
+Today we will use these vectors.
+
+```{r}
+set.seed(123)
+
+id <- paste0("id", seq(1:6))
+
+dob <- sample(seq(as.Date('1999/01/01'), as.Date('2000/01/01'), by="day"), 6)
+dod <- sample(seq(as.Date('2016/01/01'), as.Date('2017/01/01'), by="day"), 6) |> as.character()
+
+weight <- rnorm(n = 6, mean = 170, sd = 5)
+
+trt1 <- sample(c("trt1", "crl1"), 6, replace = TRUE)
+trt2 <- sample(c("trt2", "crl2"), 6, replace = TRUE)
+
+med <- paste(
+  sample(c("10", "100", "5"), 6, replace = TRUE), 
+  sample(c("ml", "units", "Ml"), 6, replace = TRUE), 
+  sep = " "
+)
+```
+
+Any guesses about what is going on here?
+
+## View data
+
+```{r}
+tibble(id,
+       dob,
+       dod,
+       trt1,
+       trt2,
+       med,
+       weight)
+```
+
+## Syntax
+
+There is a traditional way and hip way of writing `R`
+
+```{r}
+# traditional
+nrow(df)
+
+# hip
+df |> nrow()
+
+# hip also
+df %>% nrow()
+```
+
+For short code, tradition is great. The hip way uses a "pipe". The pipe places the variable behind it in the first position of the function.
+
+## Why bother?
+
+It matters for longer code.
+
+```{r}
+# traditional
+length(unique(unlist(strsplit("this string is a string", split = " "))))
+
+# hip
+"this string is a string" |> 
+  strsplit(split = " ") |>
+  unlist() |> 
+  unique() |> 
+  length()
+```
+
+The hip way is "verbose", but easier to read.
+
+Also, usually you have the object before you decide what to do with it.
+
+AND! Closing parentheses is a chore.
+
+Onwards!
+
+# Numbers
+
+## Overview
+
+| Stata               | R                     |
+|---------------------|-----------------------|
+| max(v1)             | max(v1)               |
+| min(v1)             | min(v1)               |
+| max(v1, v2)         | pmax(v1, v2)          |
+| min(v1, v2)         | pmin(v1, v2)          |
+| cond(v1 \> 3, 0, 1) | ifelse(v1 \> 3, 0, 1) |
+| nvals               | n_distinct            |
+| group               | interaction           |
+| tag                 | row_number() == 1     |
+
+## Demo
+
+```{r, error=TRUE}
+weight
+
+weight |> max()
+weight |> n_distinct()
+weight |> ifelse(_ > 170, "more", "less")
+ifelse(weight > 170, "more", "less")
+```
+
+# Characters
+
+```{r, message=FALSE}
+library(stringr)
+```
+
+
+## Overview
+
+| Stata  | R          |
+|--------|------------|
+| lower  | tolower    |
+| upper  | toupper    |
+| trim   | str_strim  |
+| strlen | str_length |
+| substr | str_sub    |
+
+
+## stringr
+
+
+|     stringr     | Stata (fixed) | Stata (wildcard) | Stata (regex)    |
+|:---------------:|:--------------|:-----------------|:-----------------|
+|   str_detect    |               | strmatch         | regexm           |
+|   str_locate    | strpos        |                  |                  |
+|    str_match    |               |                  | regexs if regexm |
+|   str_replace   | subinstr(,1)  |                  | regexr           |
+| str_replace_all | subinstr(,.)  |                  |                  |
+|    str_split    | split         |                  |                  |
+
+## Basics
+
+```{r}
+id |> toupper()
+med |> str_detect("ml")
+med |> str_split(pattern = " ")
+```
+
+What explains the last result?
+
+## More Common
+
+The problem is we want to manipulate these in the context of a dataset.
+
+```{r}
+tibble(med) |> 
+  separate(med, into = c("amount", "unit"), sep = " ") |> 
+  mutate(amount = amount |> as.numeric())
+```
+
+# Dates
+
+```{r, message=FALSE}
+library(lubridate)
+```
+
+## Warning
+
+::: callout-note
+Arithmetic with dates is not intuitive and a major source of errors. 
+:::
+
+## Overview
+
+|                           |           |                                 |
+|---------------------------|-----------|---------------------------------|
+| to convert to date format | Stata     | `generate dob=date(bday,"MDY")` |
+|                           | lubridate | `df %>% select(id, v1)`         |
+| Month                     | Stata     | `generate m=month(dob)`         |
+|                           | lubridate | `select(df, starts_with("v"))`  |
+| Day                       | Stata     | `generate d=day(dob)`      |
+|                           | lubridate | `select(df, starts_with("v"))`  |
+| Year                      | Stata     | `generate y=year(dob)`     |
+|                           | lubridate | `select(df, starts_with("v"))`  |
+
+## Basics
+
+```{r, error=TRUE}
+# 
+"2020-05-01" |> as.Date()
+"May 1, 2020" |> as.Date()
+"May 1, 2020" |> lubridate::mdy()
+
+# vector math, beware
+(dod |> as.Date() - dob)
+```
+
+## More common
+
+```{r}
+tibble(dod, dob) |> 
+  mutate(dod = as.Date(dod)) |>
+  mutate(intv = interval(dob, dod)) |> 
+  mutate(age = intv / years(1))
+```
+
+# Your turn
+
+## Go to your RStudio session
+
+

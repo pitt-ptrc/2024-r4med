@@ -1,0 +1,162 @@
+---
+title: "R for Medical Research 3"
+subtitle: "Reshape and Join"
+author: "Matt Broerman"
+date: "October 10, 2022"
+format:
+  revealjs: 
+    slide-number: true
+    preview-links: auto
+    theme: [simple, custom.scss]
+execute:
+  echo: true
+---
+
+```{r include=FALSE}
+library(tidyverse)
+```
+
+
+
+## Overview
+
+Today we will convert data from a long format to a wide format, and join together separate datasets. This completes the basic data manipulation series.
+
+# Load Data
+
+## Demographics
+
+We will use this toy dataset.
+
+:::: columns
+
+::: column
+
+```{r}
+set.seed(123)
+
+id <- paste0("id", seq(1:6))
+dob <- 
+  sample(seq(as.Date('1999/01/01'),
+             as.Date('2000/01/01'),
+             by="day"), 6)
+dod <- 
+  sample(seq(as.Date('2016/01/01'),
+             as.Date('2017/01/01'),
+             by="day"), 6)
+weight <- 
+  rnorm(n = 6, mean = 170, sd = 5)
+
+demo <- 
+  tibble(id, dob, dod, weight) |> 
+  # id6 lost to follow-up
+  head(5)
+
+```
+:::
+::: column
+```{r echo=FALSE}
+demo
+```
+
+:::
+::::
+
+## Trial data
+
+And this toy dataset.
+
+:::: columns
+
+::: column
+```{r}
+id2 <- rep(id, times = 2)
+trt <- rep(c("trt", "crl"), 
+           times = 6)
+vst <- rep(c("vst1", "vst2"), 
+           each = 6)
+res <- c(rnorm(3, 10, 1), 
+         rnorm(3, 10, 1), 
+         rnorm(3, 12, 1), 
+         rnorm(3, 17, 1))
+
+trial <- tibble(id2, vst, trt) |> 
+  arrange(vst, trt) |> 
+  mutate(res = res) |> 
+  arrange(vst, id2)
+
+trial[12, 4] <- NA
+```
+
+:::
+
+::: column
+
+```{r echo=FALSE}
+trial
+```
+
+::: 
+::::
+
+# Reshape
+
+## Long to Wide (Pivot)
+
+```{r}
+trial |> 
+  pivot_wider(id_cols = id2, names_from = vst, values_from = res)
+```
+
+Notice that we loose the treatment variable. 
+
+## Calculate
+
+```{r}
+trial_wide <- trial |> 
+  pivot_wider(id_cols = id2, names_from = vst, values_from = res) |> 
+  mutate(diff_vst = vst2 - vst1)
+
+trial_wide
+```
+
+Now we can add on the difference, and save the result to a new variable.
+
+# Join
+
+## Left Join
+
+```{r}
+demo |> 
+  left_join(trial_wide, by = c("id" = "id2"))
+```
+
+Usually you have one main dataset, and you want to add to it. You don't care about everything in the other dataset. This is a "left join," and the most common.
+
+## Full Join
+
+```{r}
+demo |> 
+  full_join(trial_wide, by = c("id" = "id2"))
+```
+
+Full joins treat both datasets as equal, and includes all data from both sets. Notice `id6` shows up again.
+
+## Anti Join (reverse)
+
+```{r}
+trial_wide |> 
+  anti_join(demo, by = c("id2" = "id"))
+```
+
+Here, we are getting all the rows in `trial_wide` that are *not* in `demo`.
+
+
+## Semi Join (reverse)
+
+```{r}
+trial_wide |> 
+  semi_join(demo, by = c("id2" = "id"))
+```
+
+Here, we are getting only the rows in `trial_wide` that are also in `demo` (but not the columns from it)

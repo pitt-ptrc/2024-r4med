@@ -1,0 +1,239 @@
+---
+title: "R for Medical Research"
+subtitle: "Dataset Manipulation"
+author: "Matt Broerman"
+date: "February 10, 2024"
+format:
+  revealjs: 
+    slide-number: true
+    preview-links: auto
+    theme: [simple, custom.scss]
+execute:
+  echo: true
+---
+
+```{r include=FALSE}
+library(here)
+library(readxl)
+
+options(tibble.print_max = 4)
+
+```
+
+# Pregame
+
+## PTRC
+
+These presentations are hosted and supported by the Pulmonary Translational Research Core:
+
+
+
+|                      |                       |
+|----------------------|-----------------------|
+| Dr. Jessica Bohn     | Director              |
+| Dr. Tim Corcoran     | Associate Director    |
+| Dr. S. Mehdi Nouraie | Lead, Biometrics Core |
+| Matt Broerman        | Biostatistician       |
+| Xiaoping Chen        | Data Manager          |
+
+## PTRC Biometric Services
+
+::::{.columns}
+
+:::{.column}
+Request services: 
+<https://www.ctsiredcap.pitt.edu/redcap/surveys/?s=493FWXAWA8>
+
+![](images/qrcode_ptrc_req.png)
+:::
+
+:::{.column}
+Services:
+
+-   Experimental Design
+-   Database Design
+-   Analysis
+
+We are especially interested in enrolling studies in PULCE2, an intergrated set of support services from study conception to publication. Please ask me more! [mjb357 "at" pitt :dot: edu](mailto:mjb357@pitt.edu)
+
+:::
+
+::::
+
+## RStudio project
+
+Get this going during the presentation:
+
+<https://rstudio.cloud/content/4697823>
+
+![](images/qrcode.png)
+
+## `tidyverse`
+
+The `tidyverse` is an opinionated set of tools that work well together. They have gotten popular in the `R` community in the last 8 years, and this workshop defaults to them.
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+## Syntax
+
+There is a traditional way and hip way of writing `R`
+
+```{r include=FALSE}
+df <- tibble(
+  id = c("id01", "id02", "id03", "id01", "id02", "id03"),     
+  v1 = rep(c("M", "F", "M"), 2),                          
+  v2 = seq(0, 10, by = 2) 
+)
+```
+
+```{r}
+# traditional
+nrow(df)
+
+# hip
+df |> nrow()
+
+# hip also
+df %>% nrow()
+```
+
+For short code, tradition is great. The hip way uses a "pipe". The pipe place the variable behind it in the first position of the function.
+
+## Why bother?
+
+It matters for longer code.
+
+```{r}
+# traditional
+length(unique(unlist(strsplit("this string is a string", split = " "))))
+
+# hip
+"this string is a string" |> 
+  strsplit(split = " ") |>
+  unlist() |> 
+  unique() |> 
+  length()
+```
+
+The hip way is "verbose", but easier to read.
+
+Also, usually you have the object before you decide what to do with it.
+
+AND! Closing parentheses is a chore.
+
+Onwards!
+
+## Load Data
+
+Data comes to us in many forms. `R` has utilities for most of them.
+
+    id,v1,v2
+    id01,M,0
+    id02,F,2
+    id03,M,4
+    id01,M,6
+    id02,F,8
+    id03,M,10
+
+```{r eval=FALSE}
+# read the csv file above
+df <- readr::read_csv("data/df.csv")
+
+# read Stata .dta files
+df <- haven::read_dta("data/df.dta")
+
+# read excel files
+df <- readxl::read_excel("data/df.xlsx")
+```
+
+## Variable types 1
+
+Usually built-in functions can figure things out. To be specific, a quick fix is to declare the types:
+
+```{r}
+df1 <- readr::read_csv("data/df.csv")
+
+df2 <- readr::read_csv("data/df.csv", 
+                      # "f" means factor
+                      # "c" means character
+                      col_types = "ffc")
+df1 |> head(1)
+df2 |> head(1)
+
+```
+
+Notice that I can have multiple datasets running at once, each assigned to a variable.
+
+
+## Variable types 2
+
+Or you can modify them as needed later (more on this later)
+
+```{r}
+df <- readr::read_csv("data/df.csv")
+
+df |> 
+  mutate(id = as.factor(id)) |> 
+  head(1)
+```
+
+## Create Data
+
+You can also create data.
+
+```{r}
+df <- tibble(
+  id = c("id01", "id02", "id03", "id01", "id02", "id03"),     
+  v1 = rep(c("M", "F", "M"), 2),                          
+  v2 = seq(0, 10, by = 2) 
+)
+
+df
+```
+
+`tibble` is a easy-to-read kind of `data.frame`, and similar to a dataset. You can create them manually, or from files.
+
+
+## Select data
+
+By name, position, or feature
+
+```{r}
+df |> select(id, v1)
+df |> select(2, 1)
+df |> select(starts_with("v"))
+```
+
+## Select data
+```{r}
+df |> select(starts_with("v"))
+```
+
+## Modify data
+
+By creating columns, altering them, or reording them
+
+```{r}
+df |> mutate(v1_fact = as.factor(v1))
+df |> rename(v1_char = v1)
+df |> mutate(v2 = v2 * 100)
+```
+
+## Modify data
+
+```{r}
+df |> mutate(v2 = v2 * 100)
+```
+
+
+## Rearrange data
+
+By sorting or reordering columns
+
+```{r}
+df |> arrange(v1)
+df |> relocate(v1)
+```
+

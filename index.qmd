@@ -1,0 +1,97 @@
+---
+title: "R for Medical Research"
+author: "Matt Broerman"
+date: "February 20, 2024"
+---
+
+## Updates
+
+<!-- Jan. 4 -->
+
+<!-- - Session 6 videos are posted.  -->
+
+<!-- - Our final session, Basic Tables and Reproducible Publication, will tie everything together.  -->
+
+<!-- Jan. 3 -->
+
+<!-- - Session 5 videos are posted. It turned out to be a bit more advanced. I will record a simpler video if anyone got lost. -->
+
+<!-- - Slides for session 6, basic modeling, are available -->
+
+<!-- Dec. 12 -->
+
+<!-- - Session 4 videos are posted -->
+
+<!-- - No slides for Session 5 -->
+
+<!-- Nov. 16: -->
+
+<!-- - Session 3 videos are posted -->
+
+<!-- - In response to feedback, future sessions will be mostly hands-on -->
+
+<!-- - Session 4 slides are posted (shorter). I encourage reviewing them before the session. -->
+
+<!-- - Session 4 is shorter, Nov. 23, 12:30-1 -->
+
+<!-- Nov. 15: -->
+
+<!-- - Session 2 videos are posted -->
+
+<!-- - Nov. 16 slides are posted. -->
+
+<!-- Nov. 4:  -->
+
+<!-- - Session 1 videos are posted -->
+
+<!-- - Nov. 4 and Nov. 9 slides are updated (material covered, and up next) -->
+
+<!-- - Some registrants did not have the passcode to attend on Zoom. Please consult the original announcement or email me (see "contact" above) ahead of time! I will start the next session, Wed, 11/9 at 12 to help anyone with questions. It is easy to catch up! -->
+
+## Description
+
+This workshop is hosted by the PACCSM Pulmonary Translational Research Core (PTRC). The purpose is to
+
+\- get you familiar enough with R so you can direct further study
+
+\- focus on in-session hands-on exercises with real data
+
+\- provide a work environment so you don't need to install software
+
+\- start with best practices
+
+The design is flipped so sessions are hands-on while the materials are preparatory and optional.
+
+## Materials
+
+All the materials we'll use in this workshop are in this RStudio project. You can open this project in your browser without needing to install or download anything on your computer. Open this RStudio.cloud project (you'll need to create a free account really quick):
+
+<p class="text-center">
+
+<a class="btn btn-info btn-lg" target="_blank" href="https://rstudio.cloud/content/4697823">{{< fa brands r-project >}}  RStudio.cloud project</a>
+
+</p>
+
+## Schedule
+
+This workshop is virtual-first, but we will meet in-person pending location availability.
+
+We will use Pitt's Zoom [service](https://pitt.zoom.us/j/97006092281) and make the recordings available internally.
+
+| Date (Weekly) |     | Topic                                     | Room | Slides                 | Links                                                                                                                                                                    |
+|--------|--------|--------|--------|--------|----------------------------------|
+| 02-20-2024    | 0   | Installation, packages, basics, questions | NA   | [web](pres_r4med_data) | [R](https://www.r-project.org/), [RStudio](https://posit.co/download/rstudio-desktop/)                                                                                   |
+| 02-27-2024    | 1   | Clinical trials and data manipulation     |      |                        | [medicaldata](https://higgi13425.github.io/medicaldata/index.html), [dplyr](https://dplyr.tidyverse.org/), [pipe style](https://r4ds.hadley.nz/workflow-style#sec-pipes) |
+| 03-05-2024    | 2   | Table-1s and reports                      |      |                        | [gtsummary](https://www.danieldsjoberg.com/gtsummary/), [quarto](https://quarto.org/)                                                                                    |
+| 03-12-2024    | 3   | EHR data and joining it together          |      |                        | [MIMIC-IV](https://physionet.org/content/mimic-iv-demo/2.2/), [tidyr](https://tidyr.tidyverse.org/)                                                                      |
+| 03-19-2024    | 4   | Summarizing and plotting                  |      |                        | [dplyr](https://dplyr.tidyverse.org/), [ggplot2](https://ggplot2.tidyverse.org/index.html)                                                                               |
+| 03-26-2024    |     | Cancelled                                 |      |                        |                                                                                                                                                                          |
+| 04-02-2024    | 5   | Linear, logistic, and cox models.         |      |                        | survival                                                                                                                                                                 |
+| 04-09-2024    | 6   | Review topics of interest                 |      |                        | ?                                                                                                                                                                        |
+| 04-16-2024    | 7   | basics of scRNAseq, causal inference      |      |                        | Seurat, mediation                                                                                                                                                        |
+
+## Registration
+
+Registration is closed.
+
+<!-- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd2vOcN5INRE3djFO-1umGc7HeZ0BIl1TUkJaMEJS7O-nE1XA/viewform?embedded=true" width="640" height="1759" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe> -->
