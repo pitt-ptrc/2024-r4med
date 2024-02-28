@@ -12,7 +12,7 @@
 
   <meta name="author" content="Matt Broerman">
   <meta name="dcterms.date" content="2024-02-10">
-  <title>R4Med 2022 workshop - R for Medical Research</title>
+  <title>R4Med 2024 workshop - R for Medical Research</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -536,7 +536,7 @@ id03,M,10</code></pre>
 </section>
 <section id="variable-types-1" class="slide level2">
 <h2>Variable types 1</h2>
-<p>Usually built-in functions can figure things out. To be specific, a quick fix is to declare the types:</p>
+<p>Usually built-in functions can figure out whether a column is a number 1, or character “1”. To be specific, a quick fix is to declare the types:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>df1 <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"data/df.csv"</span>)</span>
 <span id="cb14-2"><a href="#cb14-2"></a></span>
@@ -603,6 +603,10 @@ id03,M,10</code></pre>
 </div>
 <p><code>tibble</code> is a easy-to-read kind of <code>data.frame</code>, and similar to a dataset. You can create them manually, or from files.</p>
 </section>
+<section id="dplyr-verbs-or-functions" class="slide level2">
+<h2><code>dplyr</code> “verbs” or functions</h2>
+
+<img data-src="images/dplyr_diag.png" class="r-stretch"></section>
 <section id="select-data" class="slide level2">
 <h2>Select data</h2>
 <p>By name, position, or feature</p>

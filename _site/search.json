@@ -557,7 +557,7 @@
     "href": "index.html",
     "title": "R for Medical Research",
     "section": "",
-    "text": "Jan. 4\n\nSession 6 videos are posted.\nOur final session, Basic Tables and Reproducible Publication, will tie everything together.\n\nJan. 3\n\nSession 5 videos are posted. It turned out to be a bit more advanced. I will record a simpler video if anyone got lost.\nSlides for session 6, basic modeling, are available\n\nDec. 12\n\nSession 4 videos are posted\nNo slides for Session 5\n\nNov. 16:\n\nSession 3 videos are posted\nIn response to feedback, future sessions will be mostly hands-on\nSession 4 slides are posted (shorter). I encourage reviewing them before the session.\nSession 4 is shorter, Nov. 23, 12:30-1\n\nNov. 15:\n\nSession 2 videos are posted\nNov. 16 slides are posted.\n\nNov. 4:\n\nSession 1 videos are posted\nNov. 4 and Nov. 9 slides are updated (material covered, and up next)\nSome registrants did not have the passcode to attend on Zoom. Please consult the original announcement or email me (see “contact” above) ahead of time! I will start the next session, Wed, 11/9 at 12 to help anyone with questions. It is easy to catch up!"
+    "text": "Feb. 21\nWe secured a room for most days, E1248 BST.\nI decided to create a new project space.\nFeb. 28\nSessions 0, 1 videos are posted."
   },
   {
     "objectID": "index.html#slides",
@@ -837,7 +837,7 @@
     "href": "index.html#schedule",
     "title": "R for Medical Research",
     "section": "Schedule",
-    "text": "Schedule\nThis workshop is virtual-first, but we will meet in-person pending location availability.\nWe will use Pitt’s Zoom service and make the recordings available internally.\n\n\n\nDate (Weekly)\n\nTopic\nRoom\nSlides\nLinks\n\n\n\n\n02-20-2024\n0\nInstallation, packages, basics, questions\nNA\nweb\nR, RStudio\n\n\n02-27-2024\n1\nClinical trials and data manipulation\n\n\nmedicaldata, dplyr, pipe style\n\n\n03-05-2024\n2\nTable-1s and reports\n\n\ngtsummary, quarto\n\n\n03-12-2024\n3\nEHR data and joining it together\n\n\nMIMIC-IV, tidyr\n\n\n03-19-2024\n4\nSummarizing and plotting\n\n\ndplyr, ggplot2\n\n\n03-26-2024\n\nCancelled\n\n\n\n\n\n04-02-2024\n5\nLinear, logistic, and cox models.\n\n\nsurvival\n\n\n04-09-2024\n6\nReview topics of interest\n\n\n?\n\n\n04-16-2024\n7\nbasics of scRNAseq, causal inference\n\n\nSeurat, mediation"
+    "text": "Schedule\nThis workshop is virtual-first, but we will meet in-person pending location availability.\nWe will use Pitt’s Zoom service and make the recordings available internally.\n\n\n\nDate (Weekly)\n\nTopic\nRoom\nSlides\nLinks\nVideo\n\n\n\n\n02-20-2024\n0\nInstallation, packages, basics, questions\nNA\nPost\nR, RStudio\nPitt, UPMC\n\n\n02-27-2024\n1\nClinical trials and data manipulation\nE1248 BST\nPre, Post\nmedicaldata, dplyr, pipe style\nPitt, UPMC\n\n\n03-05-2024\n2\nTables and reports\nE1248 BST\nPre\ngtsummary, quarto\nPitt, UPMC\n\n\n03-12-2024\n3\nEHR data and joining it together\nE1248 BST\nPre\nMIMIC-IV, tidyr\nPitt, UPMC\n\n\n03-19-2024\n4\nSummarizing and plotting\nE1248 BST\n\ndplyr, ggplot2\nPitt, UPMC\n\n\n03-26-2024\n\nCancelled\n\n\n\n\n\n\n04-02-2024\n5\nLinear, logistic, and cox models.\nE1248 BST\n\nsurvival\nPitt, UPMC\n\n\n04-09-2024\n6\nReview topics of interest\nE1248 BST\n\n?\nPitt, UPMC\n\n\n04-16-2024\n7\nbasics of scRNAseq, causal inference\nE1248 BST\n\nSeurat, mediation\nPitt, UPMC"
   },
   {
     "objectID": "presentation3/index.html#basics-1",
@@ -1621,7 +1621,7 @@
     "href": "index.html#materials",
     "title": "R for Medical Research",
     "section": "Materials",
-    "text": "Materials\nAll the materials we’ll use in this workshop are in this RStudio project. You can open this project in your browser without needing to install or download anything on your computer. Open this RStudio.cloud project (you’ll need to create a free account really quick):\n\n  RStudio.cloud project"
+    "text": "Materials\nAll the materials we’ll use in this workshop are in this RStudio project. You can open this project in your browser without needing to install or download anything on your computer. Open this RStudio.cloud project (you’ll need to create a free account really quick):\n\n  posit.cloud project"
   },
   {
     "objectID": "pres_rstudio/index.html#console-and-history",
@@ -2265,7 +2265,7 @@
     "href": "pres_r4med_data/index.html#variable-types-1",
     "title": "R for Medical Research",
     "section": "Variable types 1",
-    "text": "Variable types 1\nUsually built-in functions can figure things out. To be specific, a quick fix is to declare the types:\n\ndf1 &lt;- readr::read_csv(\"data/df.csv\")\n\ndf2 &lt;- readr::read_csv(\"data/df.csv\", \n                      # \"f\" means factor\n                      # \"c\" means character\n                      col_types = \"ffc\")\ndf1 |&gt; head(1)\n\n# A tibble: 1 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n\ndf2 |&gt; head(1)\n\n# A tibble: 1 × 3\n  id    v1    v2   \n  &lt;fct&gt; &lt;fct&gt; &lt;chr&gt;\n1 id01  M     0    \n\n\nNotice that I can have multiple datasets running at once, each assigned to a variable."
+    "text": "Variable types 1\nUsually built-in functions can figure out whether a column is a number 1, or character “1”. To be specific, a quick fix is to declare the types:\n\ndf1 &lt;- readr::read_csv(\"data/df.csv\")\n\ndf2 &lt;- readr::read_csv(\"data/df.csv\", \n                      # \"f\" means factor\n                      # \"c\" means character\n                      col_types = \"ffc\")\ndf1 |&gt; head(1)\n\n# A tibble: 1 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n\ndf2 |&gt; head(1)\n\n# A tibble: 1 × 3\n  id    v1    v2   \n  &lt;fct&gt; &lt;fct&gt; &lt;chr&gt;\n1 id01  M     0    \n\n\nNotice that I can have multiple datasets running at once, each assigned to a variable."
   },
   {
     "objectID": "pres_r4med_data/index.html#variable-types-2",
@@ -2321,7 +2321,7 @@
     "href": "index.html#description",
     "title": "R for Medical Research",
     "section": "Description",
-    "text": "Description\nThis workshop is hosted by the PACCSM Pulmonary Translational Research Core (PTRC). The purpose is to\n- get you familiar enough with R so you can direct further study\n- focus on in-session hands-on exercises with real data\n- provide a work environment so you don't need to install software\n- start with best practices\nThe design is flipped so sessions are hands-on while the materials are preparatory and optional."
+    "text": "Description\nThis workshop is hosted by the PACCSM Pulmonary Translational Research Core (PTRC). The purpose is to\n\nget you familiar enough with R so you can direct further study\nfocus on in-session hands-on exercises with real data\nprovide a work environment so you don’t need to install software\nstart with best practices\n\nThe design is flipped so sessions are hands-on while the materials are preparatory and optional."
   },
   {
     "objectID": "pres_r4med_rstudio/index.html",
@@ -2334,8 +2334,8 @@
     "objectID": "pres_r4med_rstudio/index.html#intro",
     "href": "pres_r4med_rstudio/index.html#intro",
     "title": "RStudio and Reproducibility",
-    "section": "",
-    "text": "Today we will quickly tour RStudio and then demonstrate a good way to start your next reproducible analysis.\nSince code notebooks can confuse users about the current state of a variable, we will discuss where problems come up and how to troubleshoot."
+    "section": "Intro",
+    "text": "Intro\n\nToday we will quickly tour RStudio and then demonstrate a good way to start your next reproducible analysis.\nSince code notebooks can confuse users about the current state of a variable, we will discuss where problems come up and how to troubleshoot."
   },
   {
     "objectID": "pres_r4med_rstudio/index.html#the-ide-idea",
@@ -2377,7 +2377,7 @@
     "href": "pres_r4med_rstudio/index.html#console",
     "title": "RStudio and Reproducibility",
     "section": "Console",
-    "text": "Console\n\n\nThe console is the “written record.” Everything that happens, happens in the console. There are helpful messages that appear in the console. These appear only here. Errors happen here.\n\n\n\n\n\n\nTip\n\n\n\nPaste errors in the console into google!\n\n\n\n\n\n\n\nWhen you start RStudio, you can see it starts R for you."
+    "text": "Console\n\n\nThe console is the “written record.” Everything that happens, happens in the console. There are helpful messages that appear in the console. These appear only here. Errors happen here.\n\n\n\n\n\n\nTip\n\n\nPaste errors in the console into google!\n\n\n\n\n\n\n\n\nWhen you start RStudio, you can see it starts R for you."
   },
   {
     "objectID": "pres_r4med_rstudio/index.html#source",
@@ -2623,5 +2623,474 @@
     "title": "R for Medical Research 6",
     "section": "Presentation 2",
     "text": "Presentation 2\nFrom here, it is very easy to display our models in a variety of formats.\n\ncoefs |&gt; \n  ggplot(aes(x = estimate, y = p.value, color = mod, shape = term)) +\n  geom_point(size = 4)"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#create-data",
+    "href": "pres_r4med_vec/index.html#create-data",
+    "title": "R for Medical Research",
+    "section": "Create Data",
+    "text": "Create Data\nRecall this data from last time.\n\ndf &lt;- tibble(\n  id = c(\"id01\", \"id02\", \"id03\", \"id01\", \"id02\", \"id03\"),     \n  v1 = rep(c(\"M\", \"F\", \"M\"), 2),                          \n  v2 = seq(0, 10, by = 2) \n)\n\ndf\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#summarise",
+    "href": "pres_r4med_vec/index.html#summarise",
+    "title": "R for Medical Research",
+    "section": "Summarise",
+    "text": "Summarise\nWe use groups with other verbs. Foremost, summarize.\n\n\n\ndf\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10\n\n\n\n\ndf |&gt; \n  summarize(avg = mean(v2, na.rm = TRUE))\n\n# A tibble: 1 × 1\n    avg\n  &lt;dbl&gt;\n1     5\n\ndf |&gt; \n  group_by(v1) |&gt; \n  summarise(average = mean(v2, na.rm = TRUE))\n\n# A tibble: 2 × 2\n  v1    average\n  &lt;chr&gt;   &lt;dbl&gt;\n1 F           5\n2 M           5\n\ndf |&gt; \n  group_by(id) |&gt; \n  summarise(mean = mean(v2, na.rm = TRUE))\n\n# A tibble: 3 × 2\n  id     mean\n  &lt;chr&gt; &lt;dbl&gt;\n1 id01      3\n2 id02      5\n3 id03      7"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#filter",
+    "href": "pres_r4med_vec/index.html#filter",
+    "title": "R for Medical Research",
+    "section": "Filter",
+    "text": "Filter\n\n\n\ndf\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10\n\n\n\n\ndf |&gt; \n  filter(v1 == \"M\")\n\n# A tibble: 4 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id03  M         4\n3 id01  M         6\n4 id03  M        10\n\ndf %&gt;% filter(id %in% c(\"id01\", \"id02\"))\n\n# A tibble: 4 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id01  M         6\n4 id02  F         8"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#filter-2",
+    "href": "pres_r4med_vec/index.html#filter-2",
+    "title": "R for Medical Research",
+    "section": "Filter 2",
+    "text": "Filter 2\n\n\n\ndf\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10\n\n\n\n\ndf |&gt; filter(str_detect(id, \"03\"))\n\n# A tibble: 2 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id03  M         4\n2 id03  M        10\n\ndf_mod &lt;- df\ndf_mod$v1[4:6] &lt;- NA\n\ndf_mod |&gt; filter(is.na(v1))\n\n# A tibble: 3 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  &lt;NA&gt;      6\n2 id02  &lt;NA&gt;      8\n3 id03  &lt;NA&gt;     10"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#basic",
+    "href": "pres_r4med_vec/index.html#basic",
+    "title": "R for Medical Research",
+    "section": "Basic",
+    "text": "Basic\n\n\n\ndf\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10\n\n\n\n\ndf |&gt; \n  count(v1)\n\n# A tibble: 2 × 2\n  v1        n\n  &lt;chr&gt; &lt;int&gt;\n1 F         2\n2 M         4\n\ndf |&gt; \n  count(v1, sort = TRUE)\n\n# A tibble: 2 × 2\n  v1        n\n  &lt;chr&gt; &lt;int&gt;\n1 M         4\n2 F         2"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#double-up",
+    "href": "pres_r4med_vec/index.html#double-up",
+    "title": "R for Medical Research",
+    "section": "Double up",
+    "text": "Double up\nSurprisingly often, you want to count on counts. But this comes in with big datasets.\n\n\n\ndf\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10\n\n\n\n\ndf |&gt; \n  count(id) |&gt; \n  count(n)\n\n# A tibble: 1 × 2\n      n    nn\n  &lt;int&gt; &lt;int&gt;\n1     2     3"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#example",
+    "href": "pres_r4med_vec/index.html#example",
+    "title": "R for Medical Research",
+    "section": "Example",
+    "text": "Example\n\nmedicaldata::strep_tb |&gt;\n  select(patient_id, arm, gender, dose_strep_g, rad_num)\n\n# A tibble: 107 × 5\n   patient_id arm     gender dose_strep_g rad_num\n   &lt;chr&gt;      &lt;fct&gt;   &lt;fct&gt;         &lt;dbl&gt;   &lt;dbl&gt;\n 1 0001       Control M                 0       6\n 2 0002       Control F                 0       5\n 3 0003       Control F                 0       5\n 4 0004       Control M                 0       5\n 5 0005       Control F                 0       5\n 6 0006       Control M                 0       6\n 7 0007       Control F                 0       5\n 8 0008       Control M                 0       5\n 9 0009       Control F                 0       5\n10 0010       Control M                 0       5\n# ℹ 97 more rows"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#basics",
+    "href": "pres_r4med_vec/index.html#basics",
+    "title": "R for Medical Research",
+    "section": "Basics",
+    "text": "Basics\n“Vector” can mean a lot of things. Here I mean just an ordered list of things that may repeat, usually all numbers, all characters, or all dates.\n\n(v1 &lt;- c(\"1\", \"2\", \"3\"))\n\n[1] \"1\" \"2\" \"3\"\n\n(v2 &lt;- c(\"a\", \"b\", \"c\"))\n\n[1] \"a\" \"b\" \"c\"\n\n(v3 &lt;- c(1, 2, 3))\n\n[1] 1 2 3\n\n(v4 &lt;- list(\"1\", \"2\", \"3\"))\n\n[[1]]\n[1] \"1\"\n\n[[2]]\n[1] \"2\"\n\n[[3]]\n[1] \"3\"\n\n\nUsually we mean v1, v2, v3. In R, lists are very important, but more general, and so good for doing complex things to complex objects. For another day!"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#uses",
+    "href": "pres_r4med_vec/index.html#uses",
+    "title": "R for Medical Research",
+    "section": "Uses",
+    "text": "Uses\nA vector can have names, and you can do math on them.\n\nnames(v3) &lt;- v2\nv3\n\na b c \n1 2 3 \n\nmean(v3)\n\n[1] 2\n\n\nVectors of equal length make up a tibble or data.frame. Then we don’t care about the names.\n\ndf &lt;- tibble(v1, v2, v3)\ndf\n\n# A tibble: 3 × 3\n  v1    v2       v3\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 1     a         1\n2 2     b         2\n3 3     c         3\n\n\nNotice that v1 and v3 are different types."
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#load-data",
+    "href": "pres_r4med_vec/index.html#load-data",
+    "title": "R for Medical Research",
+    "section": "Load Data",
+    "text": "Load Data\nToday we will use these vectors.\n\nset.seed(123)\n\nid &lt;- paste0(\"id\", seq(1:6))\n\ndob &lt;- sample(seq(as.Date('1999/01/01'), as.Date('2000/01/01'), by=\"day\"), 6)\ndod &lt;- sample(seq(as.Date('2016/01/01'), as.Date('2017/01/01'), by=\"day\"), 6) |&gt; as.character()\n\nweight &lt;- rnorm(n = 6, mean = 170, sd = 5)\n\ntrt1 &lt;- sample(c(\"trt1\", \"crl1\"), 6, replace = TRUE)\ntrt2 &lt;- sample(c(\"trt2\", \"crl2\"), 6, replace = TRUE)\n\nmed &lt;- paste(\n  sample(c(\"10\", \"100\", \"5\"), 6, replace = TRUE), \n  sample(c(\"ml\", \"units\", \"Ml\"), 6, replace = TRUE), \n  sep = \" \"\n)\n\nAny guesses about what is going on here?"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#view-data",
+    "href": "pres_r4med_vec/index.html#view-data",
+    "title": "R for Medical Research",
+    "section": "View data",
+    "text": "View data\n\ntibble(id,\n       dob,\n       dod,\n       trt1,\n       trt2,\n       med,\n       weight)\n\n# A tibble: 6 × 7\n  id    dob        dod        trt1  trt2  med     weight\n  &lt;chr&gt; &lt;date&gt;     &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;\n1 id1   1999-06-28 2016-08-16 trt1  crl2  5 units   167.\n2 id2   1999-01-14 2016-08-31 crl1  trt2  100 Ml    168.\n3 id3   1999-07-14 2016-01-14 trt1  trt2  10 Ml     176.\n4 id4   1999-11-02 2016-06-01 crl1  trt2  5 ml      172.\n5 id5   1999-04-28 2016-03-30 trt1  trt2  10 Ml     172.\n6 id6   1999-10-26 2016-03-31 crl1  crl2  10 ml     171."
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#syntax",
+    "href": "pres_r4med_vec/index.html#syntax",
+    "title": "R for Medical Research",
+    "section": "Syntax",
+    "text": "Syntax\nThere is a traditional way and hip way of writing R\n\n# traditional\nnrow(df)\n\n[1] 3\n\n# hip\ndf |&gt; nrow()\n\n[1] 3\n\n# hip also\ndf %&gt;% nrow()\n\n[1] 3\n\n\nFor short code, tradition is great. The hip way uses a “pipe”. The pipe places the variable behind it in the first position of the function."
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#why-bother",
+    "href": "pres_r4med_vec/index.html#why-bother",
+    "title": "R for Medical Research",
+    "section": "Why bother?",
+    "text": "Why bother?\nIt matters for longer code.\n\n# traditional\nlength(unique(unlist(strsplit(\"this string is a string\", split = \" \"))))\n\n[1] 4\n\n# hip\n\"this string is a string\" |&gt; \n  strsplit(split = \" \") |&gt;\n  unlist() |&gt; \n  unique() |&gt; \n  length()\n\n[1] 4\n\n\nThe hip way is “verbose”, but easier to read.\nAlso, usually you have the object before you decide what to do with it.\nAND! Closing parentheses is a chore.\nOnwards!"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#overview",
+    "href": "pres_r4med_vec/index.html#overview",
+    "title": "R for Medical Research",
+    "section": "Overview",
+    "text": "Overview\n\n\n\nStata\nR\n\n\n\n\nmax(v1)\nmax(v1)\n\n\nmin(v1)\nmin(v1)\n\n\nmax(v1, v2)\npmax(v1, v2)\n\n\nmin(v1, v2)\npmin(v1, v2)\n\n\ncond(v1 &gt; 3, 0, 1)\nifelse(v1 &gt; 3, 0, 1)\n\n\nnvals\nn_distinct\n\n\ngroup\ninteraction\n\n\ntag\nrow_number() == 1"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#demo",
+    "href": "pres_r4med_vec/index.html#demo",
+    "title": "R for Medical Research",
+    "section": "Demo",
+    "text": "Demo\n\nweight\n\nweight |&gt; max()\nweight |&gt; n_distinct()\nweight |&gt; ifelse(_ &gt; 170, \"more\", \"less\")\nifelse(weight &gt; 170, \"more\", \"less\")\n\nError: invalid use of pipe placeholder (&lt;text&gt;:5:0)"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#overview-1",
+    "href": "pres_r4med_vec/index.html#overview-1",
+    "title": "R for Medical Research",
+    "section": "Overview",
+    "text": "Overview\n\n\n\nStata\nR\n\n\n\n\nlower\ntolower\n\n\nupper\ntoupper\n\n\ntrim\nstr_strim\n\n\nstrlen\nstr_length\n\n\nsubstr\nstr_sub"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#stringr",
+    "href": "pres_r4med_vec/index.html#stringr",
+    "title": "R for Medical Research",
+    "section": "stringr",
+    "text": "stringr\n\n\n\n\n\n\n\n\n\nstringr\nStata (fixed)\nStata (wildcard)\nStata (regex)\n\n\n\n\nstr_detect\n\nstrmatch\nregexm\n\n\nstr_locate\nstrpos\n\n\n\n\nstr_match\n\n\nregexs if regexm\n\n\nstr_replace\nsubinstr(,1)\n\nregexr\n\n\nstr_replace_all\nsubinstr(,.)\n\n\n\n\nstr_split\nsplit"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#basics-1",
+    "href": "pres_r4med_vec/index.html#basics-1",
+    "title": "R for Medical Research",
+    "section": "Basics",
+    "text": "Basics\n\nid |&gt; toupper()\n\n[1] \"ID1\" \"ID2\" \"ID3\" \"ID4\" \"ID5\" \"ID6\"\n\nmed |&gt; str_detect(\"ml\")\n\n[1] FALSE FALSE FALSE  TRUE FALSE  TRUE\n\nmed |&gt; str_split(pattern = \" \")\n\n[[1]]\n[1] \"5\"     \"units\"\n\n[[2]]\n[1] \"100\" \"Ml\" \n\n[[3]]\n[1] \"10\" \"Ml\"\n\n[[4]]\n[1] \"5\"  \"ml\"\n\n[[5]]\n[1] \"10\" \"Ml\"\n\n[[6]]\n[1] \"10\" \"ml\"\n\n\nWhat explains the last result?"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#more-common",
+    "href": "pres_r4med_vec/index.html#more-common",
+    "title": "R for Medical Research",
+    "section": "More Common",
+    "text": "More Common\nThe problem is we want to manipulate these in the context of a dataset.\n\ntibble(med) |&gt; \n  separate(med, into = c(\"amount\", \"unit\"), sep = \" \") |&gt; \n  mutate(amount = amount |&gt; as.numeric())\n\n# A tibble: 6 × 2\n  amount unit \n   &lt;dbl&gt; &lt;chr&gt;\n1      5 units\n2    100 Ml   \n3     10 Ml   \n4      5 ml   \n5     10 Ml   \n6     10 ml"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#warning",
+    "href": "pres_r4med_vec/index.html#warning",
+    "title": "R for Medical Research",
+    "section": "Warning",
+    "text": "Warning\n\n\n\n\n\n\nNote\n\n\nArithmetic with dates is not intuitive and a major source of errors."
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#overview-2",
+    "href": "pres_r4med_vec/index.html#overview-2",
+    "title": "R for Medical Research",
+    "section": "Overview",
+    "text": "Overview\n\n\n\n\n\n\n\n\nto convert to date format\nStata\ngenerate dob=date(bday,\"MDY\")\n\n\n\nlubridate\ndf %&gt;% select(id, v1)\n\n\nMonth\nStata\ngenerate m=month(dob)\n\n\n\nlubridate\nselect(df, starts_with(\"v\"))\n\n\nDay\nStata\ngenerate d=day(dob)\n\n\n\nlubridate\nselect(df, starts_with(\"v\"))\n\n\nYear\nStata\ngenerate y=year(dob)\n\n\n\nlubridate\nselect(df, starts_with(\"v\"))"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#basics-2",
+    "href": "pres_r4med_vec/index.html#basics-2",
+    "title": "R for Medical Research",
+    "section": "Basics",
+    "text": "Basics\n\n# \n\"2020-05-01\" |&gt; as.Date()\n\n[1] \"2020-05-01\"\n\n\"May 1, 2020\" |&gt; as.Date()\n\nError in charToDate(x): character string is not in a standard unambiguous format\n\n\"May 1, 2020\" |&gt; lubridate::mdy()\n\n[1] \"2020-05-01\"\n\n# vector math, beware\n(dod |&gt; as.Date() - dob)\n\nTime differences in days\n[1] 6259 6439 6028 6056 6181 6001"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#more-common-1",
+    "href": "pres_r4med_vec/index.html#more-common-1",
+    "title": "R for Medical Research",
+    "section": "More common",
+    "text": "More common\n\ntibble(dod, dob) |&gt; \n  mutate(dod = as.Date(dod)) |&gt;\n  mutate(intv = interval(dob, dod)) |&gt; \n  mutate(age = intv / years(1))\n\n# A tibble: 6 × 4\n  dod        dob        intv                             age\n  &lt;date&gt;     &lt;date&gt;     &lt;Interval&gt;                     &lt;dbl&gt;\n1 2016-08-16 1999-06-28 1999-06-28 UTC--2016-08-16 UTC  17.1\n2 2016-08-31 1999-01-14 1999-01-14 UTC--2016-08-31 UTC  17.6\n3 2016-01-14 1999-07-14 1999-07-14 UTC--2016-01-14 UTC  16.5\n4 2016-06-01 1999-11-02 1999-11-02 UTC--2016-06-01 UTC  16.6\n5 2016-03-30 1999-04-28 1999-04-28 UTC--2016-03-30 UTC  16.9\n6 2016-03-31 1999-10-26 1999-10-26 UTC--2016-03-31 UTC  16.4"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#go-to-your-rstudio-session",
+    "href": "pres_r4med_vec/index.html#go-to-your-rstudio-session",
+    "title": "R for Medical Research",
+    "section": "Go to your RStudio session",
+    "text": "Go to your RStudio session"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#numbers",
+    "href": "pres_r4med_vec/index.html#numbers",
+    "title": "R for Medical Research",
+    "section": "Numbers",
+    "text": "Numbers\n\nweight\n\n[1] 166.5657 167.7717 176.1204 171.7991 172.0039 170.5534\n\nweight |&gt; max()\n\n[1] 176.1204\n\nweight |&gt; n_distinct()\n\n[1] 6\n\nifelse(weight &gt; 170, \"more\", \"less\")\n\n[1] \"less\" \"less\" \"more\" \"more\" \"more\" \"more\""
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#characters",
+    "href": "pres_r4med_vec/index.html#characters",
+    "title": "R for Medical Research",
+    "section": "Characters",
+    "text": "Characters\n\nlibrary(stringr)"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#counting",
+    "href": "pres_r4med_vec/index.html#counting",
+    "title": "R for Medical Research",
+    "section": "Counting",
+    "text": "Counting\nHalf of data science is counting"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#group",
+    "href": "pres_r4med_vec/index.html#group",
+    "title": "R for Medical Research",
+    "section": "Group",
+    "text": "Group\nBy themselves, groups don’t do much.\n\ndf |&gt; group_by(v1)\n\n# A tibble: 6 × 3\n# Groups:   v1 [2]\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10\n\ndf |&gt; group_by(id, v1)\n\n# A tibble: 6 × 3\n# Groups:   id, v1 [3]\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#the-remainder",
+    "href": "pres_r4med_vec/index.html#the-remainder",
+    "title": "R for Medical Research",
+    "section": "The remainder",
+    "text": "The remainder\nThe rest of the slides are much less useful for the workshop, but relevant"
+  },
+  {
+    "objectID": "index.html#updates",
+    "href": "index.html#updates",
+    "title": "R for Medical Research",
+    "section": "",
+    "text": "Feb. 21\nWe secured a room for most days, E1248 BST.\nI decided to create a new project space.\nFeb. 28\nSessions 0, 1 videos are posted."
+  },
+  {
+    "objectID": "pres_r4med_data/index.html",
+    "href": "pres_r4med_data/index.html",
+    "title": "R for Medical Research",
+    "section": "",
+    "text": "These presentations are hosted and supported by the Pulmonary Translational Research Core:\n\n\n\nDr. Jessica Bohn\nDirector\n\n\nDr. Tim Corcoran\nAssociate Director\n\n\nDr. S. Mehdi Nouraie\nLead, Biometrics Core\n\n\nMatt Broerman\nBiostatistician\n\n\nXiaoping Chen\nData Manager\n\n\n\n\n\n\n\n\nRequest services: https://www.ctsiredcap.pitt.edu/redcap/surveys/?s=493FWXAWA8\n\n\nServices:\n\nExperimental Design\nDatabase Design\nAnalysis\n\nWe are especially interested in enrolling studies in PULCE2, an intergrated set of support services from study conception to publication. Please ask me more! mjb357 “at” pitt :dot: edu\n\n\n\n\n\nGet this going during the presentation:\nhttps://rstudio.cloud/content/4697823\n\n\n\n\nThe tidyverse is an opinionated set of tools that work well together. They have gotten popular in the R community in the last 8 years, and this workshop defaults to them.\n\nlibrary(tidyverse)\n\n\n\n\nThere is a traditional way and hip way of writing R\n\n# traditional\nnrow(df)\n\n[1] 6\n\n# hip\ndf |&gt; nrow()\n\n[1] 6\n\n# hip also\ndf %&gt;% nrow()\n\n[1] 6\n\n\nFor short code, tradition is great. The hip way uses a “pipe”. The pipe place the variable behind it in the first position of the function.\n\n\n\nIt matters for longer code.\n\n# traditional\nlength(unique(unlist(strsplit(\"this string is a string\", split = \" \"))))\n\n[1] 4\n\n# hip\n\"this string is a string\" |&gt; \n  strsplit(split = \" \") |&gt;\n  unlist() |&gt; \n  unique() |&gt; \n  length()\n\n[1] 4\n\n\nThe hip way is “verbose”, but easier to read.\nAlso, usually you have the object before you decide what to do with it.\nAND! Closing parentheses is a chore.\nOnwards!\n\n\n\nData comes to us in many forms. R has utilities for most of them.\nid,v1,v2\nid01,M,0\nid02,F,2\nid03,M,4\nid01,M,6\nid02,F,8\nid03,M,10\n\n# read the csv file above\ndf &lt;- readr::read_csv(\"data/df.csv\")\n\n# read Stata .dta files\ndf &lt;- haven::read_dta(\"data/df.dta\")\n\n# read excel files\ndf &lt;- readxl::read_excel(\"data/df.xlsx\")\n\n\n\n\nUsually built-in functions can figure out whether a column is a number 1, or character “1”. To be specific, a quick fix is to declare the types:\n\ndf1 &lt;- readr::read_csv(\"data/df.csv\")\n\nRows: 6 Columns: 3\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (2): id, v1\ndbl (1): v2\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\ndf2 &lt;- readr::read_csv(\"data/df.csv\", \n                      # \"f\" means factor\n                      # \"c\" means character\n                      col_types = \"ffc\")\ndf1 |&gt; head(1)\n\n# A tibble: 1 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n\ndf2 |&gt; head(1)\n\n# A tibble: 1 × 3\n  id    v1    v2   \n  &lt;fct&gt; &lt;fct&gt; &lt;chr&gt;\n1 id01  M     0    \n\n\nNotice that I can have multiple datasets running at once, each assigned to a variable.\n\n\n\nOr you can modify them as needed later (more on this later)\n\ndf &lt;- readr::read_csv(\"data/df.csv\")\n\nRows: 6 Columns: 3\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (2): id, v1\ndbl (1): v2\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\ndf |&gt; \n  mutate(id = as.factor(id)) |&gt; \n  head(1)\n\n# A tibble: 1 × 3\n  id    v1       v2\n  &lt;fct&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n\n\n\n\n\nYou can also create data.\n\ndf &lt;- tibble(\n  id = c(\"id01\", \"id02\", \"id03\", \"id01\", \"id02\", \"id03\"),     \n  v1 = rep(c(\"M\", \"F\", \"M\"), 2),                          \n  v2 = seq(0, 10, by = 2) \n)\n\ndf\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10\n\n\ntibble is a easy-to-read kind of data.frame, and similar to a dataset. You can create them manually, or from files.\n\n\n\n\n\n\n\nBy name, position, or feature\n\ndf |&gt; select(id, v1)\n\n# A tibble: 6 × 2\n  id    v1   \n  &lt;chr&gt; &lt;chr&gt;\n1 id01  M    \n2 id02  F    \n3 id03  M    \n4 id01  M    \n5 id02  F    \n6 id03  M    \n\ndf |&gt; select(2, 1)\n\n# A tibble: 6 × 2\n  v1    id   \n  &lt;chr&gt; &lt;chr&gt;\n1 M     id01 \n2 F     id02 \n3 M     id03 \n4 M     id01 \n5 F     id02 \n6 M     id03 \n\ndf |&gt; select(starts_with(\"v\"))\n\n# A tibble: 6 × 2\n  v1       v2\n  &lt;chr&gt; &lt;dbl&gt;\n1 M         0\n2 F         2\n3 M         4\n4 M         6\n5 F         8\n6 M        10\n\n\n\n\n\n\ndf |&gt; select(starts_with(\"v\"))\n\n# A tibble: 6 × 2\n  v1       v2\n  &lt;chr&gt; &lt;dbl&gt;\n1 M         0\n2 F         2\n3 M         4\n4 M         6\n5 F         8\n6 M        10\n\n\n\n\n\nBy creating columns, altering them, or reording them\n\ndf |&gt; mutate(v1_fact = as.factor(v1))\n\n# A tibble: 6 × 4\n  id    v1       v2 v1_fact\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;fct&gt;  \n1 id01  M         0 M      \n2 id02  F         2 F      \n3 id03  M         4 M      \n4 id01  M         6 M      \n5 id02  F         8 F      \n6 id03  M        10 M      \n\ndf |&gt; rename(v1_char = v1)\n\n# A tibble: 6 × 3\n  id    v1_char    v2\n  &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;\n1 id01  M           0\n2 id02  F           2\n3 id03  M           4\n4 id01  M           6\n5 id02  F           8\n6 id03  M          10\n\ndf |&gt; mutate(v2 = v2 * 100)\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F       200\n3 id03  M       400\n4 id01  M       600\n5 id02  F       800\n6 id03  M      1000\n\n\n\n\n\n\ndf |&gt; mutate(v2 = v2 * 100)\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F       200\n3 id03  M       400\n4 id01  M       600\n5 id02  F       800\n6 id03  M      1000\n\n\n\n\n\nBy sorting or reordering columns\n\ndf |&gt; arrange(v1)\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id02  F         2\n2 id02  F         8\n3 id01  M         0\n4 id03  M         4\n5 id01  M         6\n6 id03  M        10\n\ndf |&gt; relocate(v1)\n\n# A tibble: 6 × 3\n  v1    id       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 M     id01      0\n2 F     id02      2\n3 M     id03      4\n4 M     id01      6\n5 F     id02      8\n6 M     id03     10"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#filter-1",
+    "href": "pres_r4med_vec/index.html#filter-1",
+    "title": "R for Medical Research",
+    "section": "Filter",
+    "text": "Filter\n\n\n\ndf\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10\n\n\n\n\ndf |&gt; filter(str_detect(id, \"03\"))\n\n# A tibble: 2 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id03  M         4\n2 id03  M        10\n\ndf_mod &lt;- df\ndf_mod$v1[4:6] &lt;- NA\n\ndf_mod |&gt; filter(is.na(v1))\n\n# A tibble: 3 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  &lt;NA&gt;      6\n2 id02  &lt;NA&gt;      8\n3 id03  &lt;NA&gt;     10"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#count",
+    "href": "pres_r4med_vec/index.html#count",
+    "title": "R for Medical Research",
+    "section": "Count",
+    "text": "Count\nHalf of data science is counting\n\n\n\ndf\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10\n\n\n\n\ndf |&gt; \n  count(v1)\n\n# A tibble: 2 × 2\n  v1        n\n  &lt;chr&gt; &lt;int&gt;\n1 F         2\n2 M         4\n\ndf |&gt; \n  count(v1, sort = TRUE)\n\n# A tibble: 2 × 2\n  v1        n\n  &lt;chr&gt; &lt;int&gt;\n1 M         4\n2 F         2"
+  },
+  {
+    "objectID": "pres_r4med_vec/index.html#example-1",
+    "href": "pres_r4med_vec/index.html#example-1",
+    "title": "R for Medical Research",
+    "section": "Example",
+    "text": "Example\n\nmedicaldata::strep_tb |&gt; \n  count(arm, gender)\n\n# A tibble: 4 × 3\n  arm          gender     n\n  &lt;fct&gt;        &lt;fct&gt;  &lt;int&gt;\n1 Streptomycin F         31\n2 Streptomycin M         24\n3 Control      F         28\n4 Control      M         24\n\nmedicaldata::strep_tb |&gt; \n  group_by(arm, gender) |&gt; \n  summarise(\n    mean_rad_num = mean(rad_num), \n    sd_rad_num = sd(rad_num)\n  )\n\n# A tibble: 4 × 4\n# Groups:   arm [2]\n  arm          gender mean_rad_num sd_rad_num\n  &lt;fct&gt;        &lt;fct&gt;         &lt;dbl&gt;      &lt;dbl&gt;\n1 Streptomycin F              4.26       1.93\n2 Streptomycin M              5.21       1.28\n3 Control      F              3.07       1.70\n4 Control      M              3.21       1.79"
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html",
+    "href": "pres_r4med_fgs/index.html",
+    "title": "R for Medical Research",
+    "section": "",
+    "text": "Recall this data from last time.\n\ndf &lt;- tibble(\n  id = c(\"id01\", \"id02\", \"id03\", \"id01\", \"id02\", \"id03\"),     \n  v1 = rep(c(\"M\", \"F\", \"M\"), 2),                          \n  v2 = seq(0, 10, by = 2) \n)\n\ndf\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10"
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#create-data",
+    "href": "pres_r4med_fgs/index.html#create-data",
+    "title": "R for Medical Research",
+    "section": "",
+    "text": "Recall this data from last time.\n\ndf &lt;- tibble(\n  id = c(\"id01\", \"id02\", \"id03\", \"id01\", \"id02\", \"id03\"),     \n  v1 = rep(c(\"M\", \"F\", \"M\"), 2),                          \n  v2 = seq(0, 10, by = 2) \n)\n\ndf\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10"
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#filter",
+    "href": "pres_r4med_fgs/index.html#filter",
+    "title": "R for Medical Research",
+    "section": "Filter",
+    "text": "Filter\n\n\n\ndf\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10\n\n\n\n\ndf |&gt; \n  filter(v1 == \"M\")\n\n# A tibble: 4 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id03  M         4\n3 id01  M         6\n4 id03  M        10\n\ndf %&gt;% filter(id %in% c(\"id01\", \"id02\"))\n\n# A tibble: 4 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id01  M         6\n4 id02  F         8"
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#filter-1",
+    "href": "pres_r4med_fgs/index.html#filter-1",
+    "title": "R for Medical Research",
+    "section": "Filter",
+    "text": "Filter\n\n\n\ndf\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10\n\n\n\n\ndf |&gt; filter(str_detect(id, \"03\"))\n\n# A tibble: 2 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id03  M         4\n2 id03  M        10\n\ndf_mod &lt;- df\ndf_mod$v1[4:6] &lt;- NA\n\ndf_mod |&gt; filter(is.na(v1))\n\n# A tibble: 3 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  &lt;NA&gt;      6\n2 id02  &lt;NA&gt;      8\n3 id03  &lt;NA&gt;     10"
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#count",
+    "href": "pres_r4med_fgs/index.html#count",
+    "title": "R for Medical Research",
+    "section": "Count",
+    "text": "Count\nHalf of data science is counting\n\n\n\ndf\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10\n\n\n\n\ndf |&gt; \n  count(v1)\n\n# A tibble: 2 × 2\n  v1        n\n  &lt;chr&gt; &lt;int&gt;\n1 F         2\n2 M         4\n\ndf |&gt; \n  count(v1, sort = TRUE)\n\n# A tibble: 2 × 2\n  v1        n\n  &lt;chr&gt; &lt;int&gt;\n1 M         4\n2 F         2"
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#double-up",
+    "href": "pres_r4med_fgs/index.html#double-up",
+    "title": "R for Medical Research",
+    "section": "Double up",
+    "text": "Double up\nSurprisingly often, you want to count on counts. But this comes in with big datasets.\n\n\n\ndf\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10\n\n\n\n\ndf |&gt; \n  count(id) |&gt; \n  count(n)\n\nStoring counts in `nn`, as `n` already present in input\nℹ Use `name = \"new_name\"` to pick a new name.\n\n\n# A tibble: 1 × 2\n      n    nn\n  &lt;int&gt; &lt;int&gt;\n1     2     3"
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#group",
+    "href": "pres_r4med_fgs/index.html#group",
+    "title": "R for Medical Research",
+    "section": "Group",
+    "text": "Group\nBy themselves, groups don’t do much.\n\ndf |&gt; group_by(v1)\n\n# A tibble: 6 × 3\n# Groups:   v1 [2]\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10\n\ndf |&gt; group_by(id, v1)\n\n# A tibble: 6 × 3\n# Groups:   id, v1 [3]\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10"
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#summarise",
+    "href": "pres_r4med_fgs/index.html#summarise",
+    "title": "R for Medical Research",
+    "section": "Summarise",
+    "text": "Summarise\nWe use groups with other verbs. Foremost, summarize.\n\n\n\ndf\n\n# A tibble: 6 × 3\n  id    v1       v2\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 id01  M         0\n2 id02  F         2\n3 id03  M         4\n4 id01  M         6\n5 id02  F         8\n6 id03  M        10\n\n\n\n\ndf |&gt; \n  summarize(avg = mean(v2, na.rm = TRUE))\n\n# A tibble: 1 × 1\n    avg\n  &lt;dbl&gt;\n1     5\n\ndf |&gt; \n  group_by(v1) |&gt; \n  summarise(average = mean(v2, na.rm = TRUE))\n\n# A tibble: 2 × 2\n  v1    average\n  &lt;chr&gt;   &lt;dbl&gt;\n1 F           5\n2 M           5\n\ndf |&gt; \n  group_by(id) |&gt; \n  summarise(mean = mean(v2, na.rm = TRUE))\n\n# A tibble: 3 × 2\n  id     mean\n  &lt;chr&gt; &lt;dbl&gt;\n1 id01      3\n2 id02      5\n3 id03      7"
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#example",
+    "href": "pres_r4med_fgs/index.html#example",
+    "title": "R for Medical Research",
+    "section": "Example",
+    "text": "Example\n\nmedicaldata::strep_tb |&gt;\n  select(patient_id, arm, gender, dose_strep_g, rad_num)\n\n# A tibble: 107 × 5\n   patient_id arm     gender dose_strep_g rad_num\n   &lt;chr&gt;      &lt;fct&gt;   &lt;fct&gt;         &lt;dbl&gt;   &lt;dbl&gt;\n 1 0001       Control M                 0       6\n 2 0002       Control F                 0       5\n 3 0003       Control F                 0       5\n 4 0004       Control M                 0       5\n 5 0005       Control F                 0       5\n 6 0006       Control M                 0       6\n 7 0007       Control F                 0       5\n 8 0008       Control M                 0       5\n 9 0009       Control F                 0       5\n10 0010       Control M                 0       5\n# ℹ 97 more rows"
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#example-1",
+    "href": "pres_r4med_fgs/index.html#example-1",
+    "title": "R for Medical Research",
+    "section": "Example",
+    "text": "Example\n\nmedicaldata::strep_tb |&gt; \n  count(arm, gender)\n\n# A tibble: 4 × 3\n  arm          gender     n\n  &lt;fct&gt;        &lt;fct&gt;  &lt;int&gt;\n1 Streptomycin F         31\n2 Streptomycin M         24\n3 Control      F         28\n4 Control      M         24\n\nmedicaldata::strep_tb |&gt; \n  group_by(arm, gender) |&gt; \n  summarise(\n    mean_rad_num = mean(rad_num), \n    sd_rad_num = sd(rad_num)\n  )\n\n`summarise()` has grouped output by 'arm'. You can override using the `.groups`\nargument.\n\n\n# A tibble: 4 × 4\n# Groups:   arm [2]\n  arm          gender mean_rad_num sd_rad_num\n  &lt;fct&gt;        &lt;fct&gt;         &lt;dbl&gt;      &lt;dbl&gt;\n1 Streptomycin F              4.26       1.93\n2 Streptomycin M              5.21       1.28\n3 Control      F              3.07       1.70\n4 Control      M              3.21       1.79"
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#the-remainder",
+    "href": "pres_r4med_fgs/index.html#the-remainder",
+    "title": "R for Medical Research",
+    "section": "The remainder",
+    "text": "The remainder\nThe rest of the slides are much less useful for the workshop, but relevant"
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#basics",
+    "href": "pres_r4med_fgs/index.html#basics",
+    "title": "R for Medical Research",
+    "section": "Basics",
+    "text": "Basics\n“Vector” can mean a lot of things. Here I mean just an ordered list of things that may repeat, usually all numbers, all characters, or all dates.\n\n(v1 &lt;- c(\"1\", \"2\", \"3\"))\n\n[1] \"1\" \"2\" \"3\"\n\n(v2 &lt;- c(\"a\", \"b\", \"c\"))\n\n[1] \"a\" \"b\" \"c\"\n\n(v3 &lt;- c(1, 2, 3))\n\n[1] 1 2 3\n\n(v4 &lt;- list(\"1\", \"2\", \"3\"))\n\n[[1]]\n[1] \"1\"\n\n[[2]]\n[1] \"2\"\n\n[[3]]\n[1] \"3\"\n\n\nUsually we mean v1, v2, v3. In R, lists are very important, but more general, and so good for doing complex things to complex objects. For another day!"
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#uses",
+    "href": "pres_r4med_fgs/index.html#uses",
+    "title": "R for Medical Research",
+    "section": "Uses",
+    "text": "Uses\nA vector can have names, and you can do math on them.\n\nnames(v3) &lt;- v2\nv3\n\na b c \n1 2 3 \n\nmean(v3)\n\n[1] 2\n\n\nVectors of equal length make up a tibble or data.frame. Then we don’t care about the names.\n\ndf &lt;- tibble(v1, v2, v3)\ndf\n\n# A tibble: 3 × 3\n  v1    v2       v3\n  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n1 1     a         1\n2 2     b         2\n3 3     c         3\n\n\nNotice that v1 and v3 are different types."
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#load-data",
+    "href": "pres_r4med_fgs/index.html#load-data",
+    "title": "R for Medical Research",
+    "section": "Load Data",
+    "text": "Load Data\nToday we will use these vectors.\n\nset.seed(123)\n\nid &lt;- paste0(\"id\", seq(1:6))\n\ndob &lt;- sample(seq(as.Date('1999/01/01'), as.Date('2000/01/01'), by=\"day\"), 6)\ndod &lt;- sample(seq(as.Date('2016/01/01'), as.Date('2017/01/01'), by=\"day\"), 6) |&gt; as.character()\n\nweight &lt;- rnorm(n = 6, mean = 170, sd = 5)\n\ntrt1 &lt;- sample(c(\"trt1\", \"crl1\"), 6, replace = TRUE)\ntrt2 &lt;- sample(c(\"trt2\", \"crl2\"), 6, replace = TRUE)\n\nmed &lt;- paste(\n  sample(c(\"10\", \"100\", \"5\"), 6, replace = TRUE), \n  sample(c(\"ml\", \"units\", \"Ml\"), 6, replace = TRUE), \n  sep = \" \"\n)\n\nAny guesses about what is going on here?"
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#view-data",
+    "href": "pres_r4med_fgs/index.html#view-data",
+    "title": "R for Medical Research",
+    "section": "View data",
+    "text": "View data\n\ntibble(id,\n       dob,\n       dod,\n       trt1,\n       trt2,\n       med,\n       weight)\n\n# A tibble: 6 × 7\n  id    dob        dod        trt1  trt2  med     weight\n  &lt;chr&gt; &lt;date&gt;     &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;\n1 id1   1999-06-28 2016-08-16 trt1  crl2  5 units   167.\n2 id2   1999-01-14 2016-08-31 crl1  trt2  100 Ml    168.\n3 id3   1999-07-14 2016-01-14 trt1  trt2  10 Ml     176.\n4 id4   1999-11-02 2016-06-01 crl1  trt2  5 ml      172.\n5 id5   1999-04-28 2016-03-30 trt1  trt2  10 Ml     172.\n6 id6   1999-10-26 2016-03-31 crl1  crl2  10 ml     171."
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#numbers",
+    "href": "pres_r4med_fgs/index.html#numbers",
+    "title": "R for Medical Research",
+    "section": "Numbers",
+    "text": "Numbers\n\nweight\n\n[1] 166.5657 167.7717 176.1204 171.7991 172.0039 170.5534\n\nweight |&gt; max()\n\n[1] 176.1204\n\nweight |&gt; n_distinct()\n\n[1] 6\n\nifelse(weight &gt; 170, \"more\", \"less\")\n\n[1] \"less\" \"less\" \"more\" \"more\" \"more\" \"more\""
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#characters",
+    "href": "pres_r4med_fgs/index.html#characters",
+    "title": "R for Medical Research",
+    "section": "Characters",
+    "text": "Characters\n\nlibrary(stringr)"
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#basics-1",
+    "href": "pres_r4med_fgs/index.html#basics-1",
+    "title": "R for Medical Research",
+    "section": "Basics",
+    "text": "Basics\n\nid |&gt; toupper()\n\n[1] \"ID1\" \"ID2\" \"ID3\" \"ID4\" \"ID5\" \"ID6\"\n\nmed |&gt; str_detect(\"ml\")\n\n[1] FALSE FALSE FALSE  TRUE FALSE  TRUE\n\nmed |&gt; str_split(pattern = \" \")\n\n[[1]]\n[1] \"5\"     \"units\"\n\n[[2]]\n[1] \"100\" \"Ml\" \n\n[[3]]\n[1] \"10\" \"Ml\"\n\n[[4]]\n[1] \"5\"  \"ml\"\n\n[[5]]\n[1] \"10\" \"Ml\"\n\n[[6]]\n[1] \"10\" \"ml\"\n\n\nWhat explains the last result?"
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#more-common",
+    "href": "pres_r4med_fgs/index.html#more-common",
+    "title": "R for Medical Research",
+    "section": "More Common",
+    "text": "More Common\nThe problem is we want to manipulate these in the context of a dataset.\n\ntibble(med) |&gt; \n  separate(med, into = c(\"amount\", \"unit\"), sep = \" \") |&gt; \n  mutate(amount = amount |&gt; as.numeric())\n\n# A tibble: 6 × 2\n  amount unit \n   &lt;dbl&gt; &lt;chr&gt;\n1      5 units\n2    100 Ml   \n3     10 Ml   \n4      5 ml   \n5     10 Ml   \n6     10 ml"
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#warning",
+    "href": "pres_r4med_fgs/index.html#warning",
+    "title": "R for Medical Research",
+    "section": "Warning",
+    "text": "Warning\n\n\n\n\n\n\nNote\n\n\nArithmetic with dates is not intuitive and a major source of errors."
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#basics-2",
+    "href": "pres_r4med_fgs/index.html#basics-2",
+    "title": "R for Medical Research",
+    "section": "Basics",
+    "text": "Basics\n\n# \n\"2020-05-01\" |&gt; as.Date()\n\n[1] \"2020-05-01\"\n\n\"May 1, 2020\" |&gt; as.Date()\n\nError in charToDate(x): character string is not in a standard unambiguous format\n\n\"May 1, 2020\" |&gt; lubridate::mdy()\n\n[1] \"2020-05-01\"\n\n# vector math, beware\n(dod |&gt; as.Date() - dob)\n\nTime differences in days\n[1] 6259 6439 6028 6056 6181 6001"
+  },
+  {
+    "objectID": "pres_r4med_fgs/index.html#more-common-1",
+    "href": "pres_r4med_fgs/index.html#more-common-1",
+    "title": "R for Medical Research",
+    "section": "More common",
+    "text": "More common\n\ntibble(dod, dob) |&gt; \n  mutate(dod = as.Date(dod)) |&gt;\n  mutate(intv = interval(dob, dod)) |&gt; \n  mutate(age = intv / years(1))\n\n# A tibble: 6 × 4\n  dod        dob        intv                             age\n  &lt;date&gt;     &lt;date&gt;     &lt;Interval&gt;                     &lt;dbl&gt;\n1 2016-08-16 1999-06-28 1999-06-28 UTC--2016-08-16 UTC  17.1\n2 2016-08-31 1999-01-14 1999-01-14 UTC--2016-08-31 UTC  17.6\n3 2016-01-14 1999-07-14 1999-07-14 UTC--2016-01-14 UTC  16.5\n4 2016-06-01 1999-11-02 1999-11-02 UTC--2016-06-01 UTC  16.6\n5 2016-03-30 1999-04-28 1999-04-28 UTC--2016-03-30 UTC  16.9\n6 2016-03-31 1999-10-26 1999-10-26 UTC--2016-03-31 UTC  16.4"
+  },
+  {
+    "objectID": "pres_r4med_data/index.html#dplyr-verbs-or-functions",
+    "href": "pres_r4med_data/index.html#dplyr-verbs-or-functions",
+    "title": "R for Medical Research",
+    "section": "dplyr “verbs” or functions",
+    "text": "dplyr “verbs” or functions"
+  },
+  {
+    "objectID": "pres_r4med_shape/index.html#overview",
+    "href": "pres_r4med_shape/index.html#overview",
+    "title": "R for Medical Research",
+    "section": "",
+    "text": "Today we will convert data from a long format to a wide format, and join together separate datasets. This completes the basic data manipulation series."
+  },
+  {
+    "objectID": "pres_r4med_shape/index.html#demographics",
+    "href": "pres_r4med_shape/index.html#demographics",
+    "title": "R for Medical Research",
+    "section": "Demographics",
+    "text": "Demographics\nWe will use this toy dataset.\n\n\n\nset.seed(123)\n\nid &lt;- paste0(\"id\", seq(1:6))\ndob &lt;- \n  sample(seq(as.Date('1999/01/01'),\n             as.Date('2000/01/01'),\n             by=\"day\"), 6)\ndod &lt;- \n  sample(seq(as.Date('2016/01/01'),\n             as.Date('2017/01/01'),\n             by=\"day\"), 6)\nweight &lt;- \n  rnorm(n = 6, mean = 170, sd = 5)\n\ndemo &lt;- \n  tibble(id, dob, dod, weight) |&gt; \n  # id6 lost to follow-up\n  head(5)\n\n\n\n\n# A tibble: 5 × 4\n  id    dob        dod        weight\n  &lt;chr&gt; &lt;date&gt;     &lt;date&gt;      &lt;dbl&gt;\n1 id1   1999-06-28 2016-08-16   167.\n2 id2   1999-01-14 2016-08-31   168.\n3 id3   1999-07-14 2016-01-14   176.\n4 id4   1999-11-02 2016-06-01   172.\n5 id5   1999-04-28 2016-03-30   172."
+  },
+  {
+    "objectID": "pres_r4med_shape/index.html#trial-data",
+    "href": "pres_r4med_shape/index.html#trial-data",
+    "title": "R for Medical Research",
+    "section": "Trial data",
+    "text": "Trial data\nAnd this toy dataset.\n\n\n\nid2 &lt;- rep(id, times = 2)\ntrt &lt;- rep(c(\"trt\", \"crl\"), \n           times = 6)\nvst &lt;- rep(c(\"vst1\", \"vst2\"), \n           each = 6)\nres &lt;- c(rnorm(3, 10, 1), \n         rnorm(3, 10, 1), \n         rnorm(3, 12, 1), \n         rnorm(3, 17, 1))\n\ntrial &lt;- tibble(id2, vst, trt) |&gt; \n  arrange(vst, trt) |&gt; \n  mutate(res = res) |&gt; \n  arrange(vst, id2)\n\ntrial[12, 4] &lt;- NA\n\n\n\n\n# A tibble: 12 × 4\n   id2   vst   trt     res\n   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n 1 id1   vst1  trt    8.03\n 2 id2   vst1  crl    9.44\n 3 id3   vst1  trt   10.7 \n 4 id4   vst1  crl   11.8 \n 5 id5   vst1  trt    9.53\n 6 id6   vst1  crl   10.5 \n 7 id1   vst2  trt   16.3 \n 8 id2   vst2  crl   10.9 \n 9 id3   vst2  trt   16.4 \n10 id4   vst2  crl   11.8 \n11 id5   vst2  trt   15.3 \n12 id6   vst2  crl   NA"
+  },
+  {
+    "objectID": "pres_r4med_shape/index.html#long-to-wide-pivot",
+    "href": "pres_r4med_shape/index.html#long-to-wide-pivot",
+    "title": "R for Medical Research",
+    "section": "Long to Wide (Pivot)",
+    "text": "Long to Wide (Pivot)\n\ntrial |&gt; \n  pivot_wider(id_cols = id2, names_from = vst, values_from = res)\n\n# A tibble: 6 × 3\n  id2    vst1  vst2\n  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 id1    8.03  16.3\n2 id2    9.44  10.9\n3 id3   10.7   16.4\n4 id4   11.8   11.8\n5 id5    9.53  15.3\n6 id6   10.5   NA  \n\n\nNotice that we loose the treatment variable."
+  },
+  {
+    "objectID": "pres_r4med_shape/index.html#calculate",
+    "href": "pres_r4med_shape/index.html#calculate",
+    "title": "R for Medical Research",
+    "section": "Calculate",
+    "text": "Calculate\n\ntrial_wide &lt;- trial |&gt; \n  pivot_wider(id_cols = id2, names_from = vst, values_from = res) |&gt; \n  mutate(diff_vst = vst2 - vst1)\n\ntrial_wide\n\n# A tibble: 6 × 4\n  id2    vst1  vst2 diff_vst\n  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;\n1 id1    8.03  16.3  8.24   \n2 id2    9.44  10.9  1.49   \n3 id3   10.7   16.4  5.67   \n4 id4   11.8   11.8 -0.00489\n5 id5    9.53  15.3  5.79   \n6 id6   10.5   NA   NA      \n\n\nNow we can add on the difference, and save the result to a new variable."
+  },
+  {
+    "objectID": "pres_r4med_shape/index.html#left-join",
+    "href": "pres_r4med_shape/index.html#left-join",
+    "title": "R for Medical Research",
+    "section": "Left Join",
+    "text": "Left Join\n\ndemo |&gt; \n  left_join(trial_wide, by = c(\"id\" = \"id2\"))\n\n# A tibble: 5 × 7\n  id    dob        dod        weight  vst1  vst2 diff_vst\n  &lt;chr&gt; &lt;date&gt;     &lt;date&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;\n1 id1   1999-06-28 2016-08-16   167.  8.03  16.3  8.24   \n2 id2   1999-01-14 2016-08-31   168.  9.44  10.9  1.49   \n3 id3   1999-07-14 2016-01-14   176. 10.7   16.4  5.67   \n4 id4   1999-11-02 2016-06-01   172. 11.8   11.8 -0.00489\n5 id5   1999-04-28 2016-03-30   172.  9.53  15.3  5.79   \n\n\nUsually you have one main dataset, and you want to add to it. You don’t care about everything in the other dataset. This is a “left join,” and the most common."
+  },
+  {
+    "objectID": "pres_r4med_shape/index.html#full-join",
+    "href": "pres_r4med_shape/index.html#full-join",
+    "title": "R for Medical Research",
+    "section": "Full Join",
+    "text": "Full Join\n\ndemo |&gt; \n  full_join(trial_wide, by = c(\"id\" = \"id2\"))\n\n# A tibble: 6 × 7\n  id    dob        dod        weight  vst1  vst2 diff_vst\n  &lt;chr&gt; &lt;date&gt;     &lt;date&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;\n1 id1   1999-06-28 2016-08-16   167.  8.03  16.3  8.24   \n2 id2   1999-01-14 2016-08-31   168.  9.44  10.9  1.49   \n3 id3   1999-07-14 2016-01-14   176. 10.7   16.4  5.67   \n4 id4   1999-11-02 2016-06-01   172. 11.8   11.8 -0.00489\n5 id5   1999-04-28 2016-03-30   172.  9.53  15.3  5.79   \n6 id6   NA         NA            NA  10.5   NA   NA      \n\n\nFull joins treat both datasets as equal, and includes all data from both sets. Notice id6 shows up again."
+  },
+  {
+    "objectID": "pres_r4med_shape/index.html#anti-join-reverse",
+    "href": "pres_r4med_shape/index.html#anti-join-reverse",
+    "title": "R for Medical Research",
+    "section": "Anti Join (reverse)",
+    "text": "Anti Join (reverse)\n\ntrial_wide |&gt; \n  anti_join(demo, by = c(\"id2\" = \"id\"))\n\n# A tibble: 1 × 4\n  id2    vst1  vst2 diff_vst\n  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;\n1 id6    10.5    NA       NA\n\n\nHere, we are getting all the rows in trial_wide that are not in demo."
+  },
+  {
+    "objectID": "pres_r4med_shape/index.html#semi-join-reverse",
+    "href": "pres_r4med_shape/index.html#semi-join-reverse",
+    "title": "R for Medical Research",
+    "section": "Semi Join (reverse)",
+    "text": "Semi Join (reverse)\n\ntrial_wide |&gt; \n  semi_join(demo, by = c(\"id2\" = \"id\"))\n\n# A tibble: 5 × 4\n  id2    vst1  vst2 diff_vst\n  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;\n1 id1    8.03  16.3  8.24   \n2 id2    9.44  10.9  1.49   \n3 id3   10.7   16.4  5.67   \n4 id4   11.8   11.8 -0.00489\n5 id5    9.53  15.3  5.79   \n\n\nHere, we are getting only the rows in trial_wide that are also in demo (but not the columns from it)"
+  },
+  {
+    "objectID": "pres_r4med_shape/index.html",
+    "href": "pres_r4med_shape/index.html",
+    "title": "R for Medical Research",
+    "section": "",
+    "text": "Today we will convert data from a long format to a wide format, and join together separate datasets. This completes the basic data manipulation series."
   }
 ]

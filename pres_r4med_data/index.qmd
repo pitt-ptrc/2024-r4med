@@ -150,7 +150,7 @@ df <- readxl::read_excel("data/df.xlsx")
 
 ## Variable types 1
 
-Usually built-in functions can figure things out. To be specific, a quick fix is to declare the types:
+Usually built-in functions can figure out whether a column is a number 1, or character "1". To be specific, a quick fix is to declare the types:
 
 ```{r}
 df1 <- readr::read_csv("data/df.csv")
@@ -165,7 +165,6 @@ df2 |> head(1)
 ```
 
 Notice that I can have multiple datasets running at once, each assigned to a variable.
-
 
 ## Variable types 2
 
@@ -195,6 +194,9 @@ df
 
 `tibble` is a easy-to-read kind of `data.frame`, and similar to a dataset. You can create them manually, or from files.
 
+## `dplyr` "verbs" or functions
+
+![](images/dplyr_diag.png)
 
 ## Select data
 

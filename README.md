@@ -1,6 +1,7 @@
 # R for Medical Research
 
 **Matthew Broerman**  
+
 Pulmonary Translational Research Core
 Pulmonary, Allergy, Critical Care and Sleep Medicine
 Department of Medicine
@@ -13,7 +14,8 @@ Eight week workshop, February 2024, for the basics of modern medical research in
 
 ## Materials
 
-Access all the slides and course materials at <https://r4med-paccsm.netlify.app/>.
+Access the slides and schedule at <https://r4med-paccsm.netlify.app/>.
+Access the demos at <https://github.com/pitt-ptrc/2024-r4med-study>.
 
 ## License
 

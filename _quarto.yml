@@ -8,7 +8,7 @@ project:
     - "project.zip"
 
 website:
-  title: "R4Med 2022 workshop"
+  title: "R4Med 2024 workshop"
   search: false
   navbar:
     background: "#663171"

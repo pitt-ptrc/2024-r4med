@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Matt Broerman">
 <meta name="dcterms.date" content="2024-02-20">
 
-<title>R4Med 2022 workshop - R for Medical Research</title>
+<title>R4Med 2024 workshop - R for Medical Research</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -47,6 +47,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -60,11 +61,11 @@ ul.task-list li input[type="checkbox"] {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">R4Med 2022 workshop</span>
+    <span class="navbar-title">R4Med 2024 workshop</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -73,26 +74,26 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="https://pitt.zoom.us/j/96099162214" rel="" target="">
- <span class="menu-text">Zoom</span></a>
+    <a class="nav-link" href="https://pitt.zoom.us/j/96099162214"> 
+<span class="menu-text">Zoom</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="mailto:mjb357@pitt.edu" rel="" target="">
- <span class="menu-text">Contact</span></a>
+    <a class="nav-link" href="mailto:mjb357@pitt.edu"> 
+<span class="menu-text">Contact</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://dom.pitt.edu/paccm/" rel="" target="">
- <span class="menu-text">Division</span></a>
+    <a class="nav-link" href="https://dom.pitt.edu/paccm/"> 
+<span class="menu-text">Division</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/pitt-ptrc/2024-r4med" rel="" target=""><i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/pitt-ptrc/2024-r4med"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -143,47 +144,34 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
+
 </header>
+
 
 <section id="updates" class="level2">
 <h2 class="anchored" data-anchor-id="updates">Updates</h2>
-<!-- Jan. 4 -->
-<!-- - Session 6 videos are posted.  -->
-
-<!-- - Our final session, Basic Tables and Reproducible Publication, will tie everything together.  -->
-<!-- Jan. 3 -->
-<!-- - Session 5 videos are posted. It turned out to be a bit more advanced. I will record a simpler video if anyone got lost. -->
-<!-- - Slides for session 6, basic modeling, are available -->
-<!-- Dec. 12 -->
-<!-- - Session 4 videos are posted -->
-<!-- - No slides for Session 5 -->
-<!-- Nov. 16: -->
-<!-- - Session 3 videos are posted -->
-<!-- - In response to feedback, future sessions will be mostly hands-on -->
-<!-- - Session 4 slides are posted (shorter). I encourage reviewing them before the session. -->
-<!-- - Session 4 is shorter, Nov. 23, 12:30-1 -->
-<!-- Nov. 15: -->
-<!-- - Session 2 videos are posted -->
-<!-- - Nov. 16 slides are posted. -->
-<!-- Nov. 4:  -->
-<!-- - Session 1 videos are posted -->
-<!-- - Nov. 4 and Nov. 9 slides are updated (material covered, and up next) -->
-<!-- - Some registrants did not have the passcode to attend on Zoom. Please consult the original announcement or email me (see "contact" above) ahead of time! I will start the next session, Wed, 11/9 at 12 to help anyone with questions. It is easy to catch up! -->
+<p><strong>Feb.&nbsp;21</strong></p>
+<p>We secured a room for most days, E1248 BST.</p>
+<p>I decided to create a new project space.</p>
+<p><strong>Feb.&nbsp;28</strong></p>
+<p>Sessions 0, 1 videos are posted.</p>
 </section>
 <section id="description" class="level2">
 <h2 class="anchored" data-anchor-id="description">Description</h2>
 <p>This workshop is hosted by the PACCSM Pulmonary Translational Research Core (PTRC). The purpose is to</p>
-<p>- get you familiar enough with R so you can direct further study</p>
-<p>- focus on in-session hands-on exercises with real data</p>
-<p>- provide a work environment so you don't need to install software</p>
-<p>- start with best practices</p>
+<ul>
+<li>get you familiar enough with R so you can direct further study</li>
+<li>focus on in-session hands-on exercises with real data</li>
+<li>provide a work environment so you don’t need to install software</li>
+<li>start with best practices</li>
+</ul>
 <p>The design is flipped so sessions are hands-on while the materials are preparatory and optional.</p>
 </section>
 <section id="materials" class="level2">
 <h2 class="anchored" data-anchor-id="materials">Materials</h2>
 <p>All the materials we’ll use in this workshop are in this RStudio project. You can open this project in your browser without needing to install or download anything on your computer. Open this RStudio.cloud project (you’ll need to create a free account really quick):</p>
 <p class="text-center">
-</p><p><a class="btn btn-info btn-lg" target="_blank" href="https://rstudio.cloud/content/4697823"><i class="fa-brands fa-r-project" aria-hidden="true"></i>  RStudio.cloud project</a></p>
+</p><p><a class="btn btn-info btn-lg" target="_blank" href="https://posit.cloud/content/7647057"><i class="fa-brands fa-r-project" aria-hidden="true"></i>  posit.cloud project</a></p>
 <p></p>
 </section>
 <section id="schedule" class="level2">
@@ -199,6 +187,7 @@ ul.task-list li input[type="checkbox"] {
 <th>Room</th>
 <th>Slides</th>
 <th>Links</th>
+<th>Video</th>
 </tr>
 </thead>
 <tbody>
@@ -207,40 +196,45 @@ ul.task-list li input[type="checkbox"] {
 <td>0</td>
 <td>Installation, packages, basics, questions</td>
 <td>NA</td>
-<td><a href="pres_r4med_data">web</a></td>
+<td><a href="pres_r4med_rstudio/">Post</a></td>
 <td><a href="https://www.r-project.org/">R</a>,&nbsp;<a href="https://posit.co/download/rstudio-desktop/">RStudio</a></td>
+<td><a href="https://pitt.zoom.us/rec/share/dDz-FnEBd3iXiR_6YFWRsizs9sfL8kIWV405qYDYOjfBstET-Vdg3p4P1j0m62K9.-I1Ceur6pHRozPem">Pitt</a>, <a href="https://upmchs-my.sharepoint.com/:v:/g/personal/broermanmj_upmc_edu/EVAyGJqsQnxOhGfSErqmIaUBYQD5WunJpbq16htK5B3jjA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&amp;e=UjzGc0">UPMC</a></td>
 </tr>
 <tr class="even">
 <td>02-27-2024</td>
 <td>1</td>
 <td>Clinical trials and data manipulation</td>
-<td></td>
-<td></td>
+<td>E1248 BST</td>
+<td><a href="pres_r4med_data/">Pre</a>, <a href="pres_r4med_vec/">Post</a></td>
 <td><a href="https://higgi13425.github.io/medicaldata/index.html">medicaldata</a>,&nbsp;<a href="https://dplyr.tidyverse.org/">dplyr</a>,&nbsp;<a href="https://r4ds.hadley.nz/workflow-style#sec-pipes">pipe style</a></td>
+<td><a href="https://pitt.zoom.us/rec/share/bi-xXeGb3HiIjsWlj-YcUD0hdAhhI09fbCwKTguIYCvzEJvk_6jlYY9GXN98u5cn.adISKQMN6RRMmZKv">Pitt</a>, <a href="https://upmchs-my.sharepoint.com/:v:/g/personal/broermanmj_upmc_edu/EQFa1ZsrN-5EjNazl-SjjdoBAojsWkwNhxhqLjYyawZ63w?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&amp;e=3RxPJu">UPMC</a></td>
 </tr>
 <tr class="odd">
 <td>03-05-2024</td>
 <td>2</td>
-<td>Table-1s and reports</td>
-<td></td>
-<td></td>
+<td>Tables and reports</td>
+<td>E1248 BST</td>
+<td><a href="pres_r4med_fgs/">Pre</a></td>
 <td><a href="https://www.danieldsjoberg.com/gtsummary/">gtsummary</a>,&nbsp;<a href="https://quarto.org/">quarto</a></td>
+<td>Pitt, UPMC</td>
 </tr>
 <tr class="even">
 <td>03-12-2024</td>
 <td>3</td>
 <td>EHR data and joining it together</td>
-<td></td>
-<td></td>
+<td>E1248 BST</td>
+<td><a href="pres_r4med_shape/">Pre</a></td>
 <td><a href="https://physionet.org/content/mimic-iv-demo/2.2/">MIMIC-IV</a>,&nbsp;<a href="https://tidyr.tidyverse.org/">tidyr</a></td>
+<td>Pitt, UPMC</td>
 </tr>
 <tr class="odd">
 <td>03-19-2024</td>
 <td>4</td>
 <td>Summarizing and plotting</td>
-<td></td>
+<td>E1248 BST</td>
 <td></td>
 <td><a href="https://dplyr.tidyverse.org/">dplyr</a>,&nbsp;<a href="https://ggplot2.tidyverse.org/index.html">ggplot2</a></td>
+<td>Pitt, UPMC</td>
 </tr>
 <tr class="even">
 <td>03-26-2024</td>
@@ -249,30 +243,34 @@ ul.task-list li input[type="checkbox"] {
 <td></td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr class="odd">
 <td>04-02-2024</td>
 <td>5</td>
 <td>Linear, logistic, and cox models.</td>
-<td></td>
+<td>E1248 BST</td>
 <td></td>
 <td>survival</td>
+<td>Pitt, UPMC</td>
 </tr>
 <tr class="even">
 <td>04-09-2024</td>
 <td>6</td>
 <td>Review topics of interest</td>
-<td></td>
+<td>E1248 BST</td>
 <td></td>
 <td>?</td>
+<td>Pitt, UPMC</td>
 </tr>
 <tr class="odd">
 <td>04-16-2024</td>
 <td>7</td>
 <td>basics of scRNAseq, causal inference</td>
-<td></td>
+<td>E1248 BST</td>
 <td></td>
 <td>Seurat, mediation</td>
+<td>Pitt, UPMC</td>
 </tr>
 </tbody>
 </table>
@@ -365,10 +363,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -378,8 +375,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -392,6 +398,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -435,6 +560,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -460,6 +586,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -522,13 +674,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Content <i class="fa-brands fa-creative-commons" aria-hidden="true"></i> 2022 by <a href="https://www.mjbroerman.github.io/">Matt Broerman</a>. Workshop design adapted from <a href="https://www.andrewheiss.com/">Andrew Heiss</a>.<br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-hidden="true"></i> <i class="fa-brands fa-creative-commons-by" aria-hidden="true"></i> <i class="fa-brands fa-creative-commons-nc" aria-hidden="true"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></div>   
+    <div class="nav-footer-left">
+<p>Content <i class="fa-brands fa-creative-commons" aria-hidden="true"></i> 2022 by <a href="https://www.mjbroerman.github.io/">Matt Broerman</a>. Workshop design adapted from <a href="https://www.andrewheiss.com/">Andrew Heiss</a>.<br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-hidden="true"></i> <i class="fa-brands fa-creative-commons-by" aria-hidden="true"></i> <i class="fa-brands fa-creative-commons-nc" aria-hidden="true"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
-    <div class="nav-footer-right">Made with <i class="fa-brands fa-r-project" aria-hidden="true"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/mjbroerman/2022-r4med">View the source at <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a></div>
+    <div class="nav-footer-right">
+<p>[Made with <i class="fa-brands fa-r-project" aria-hidden="true"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/mjbroerman/2022-r4med">View the source at <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a></p>
+</div>
   </div>
 </footer>
+
 
 
 

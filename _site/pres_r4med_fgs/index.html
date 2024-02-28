@@ -140,24 +140,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data">Load Data</a>
-  <ul class="collapse">
-  <li><a href="#demographics" id="toc-demographics" class="nav-link" data-scroll-target="#demographics">Demographics</a></li>
-  <li><a href="#trial-data" id="toc-trial-data" class="nav-link" data-scroll-target="#trial-data">Trial data</a></li>
-  </ul></li>
-  <li><a href="#reshape" id="toc-reshape" class="nav-link" data-scroll-target="#reshape">Reshape</a>
-  <ul class="collapse">
-  <li><a href="#long-to-wide-pivot" id="toc-long-to-wide-pivot" class="nav-link" data-scroll-target="#long-to-wide-pivot">Long to Wide (Pivot)</a></li>
-  <li><a href="#calculate" id="toc-calculate" class="nav-link" data-scroll-target="#calculate">Calculate</a></li>
-  </ul></li>
-  <li><a href="#join" id="toc-join" class="nav-link" data-scroll-target="#join">Join</a>
-  <ul class="collapse">
-  <li><a href="#left-join" id="toc-left-join" class="nav-link" data-scroll-target="#left-join">Left Join</a></li>
-  <li><a href="#full-join" id="toc-full-join" class="nav-link" data-scroll-target="#full-join">Full Join</a></li>
-  <li><a href="#anti-join-reverse" id="toc-anti-join-reverse" class="nav-link" data-scroll-target="#anti-join-reverse">Anti Join (reverse)</a></li>
-  <li><a href="#semi-join-reverse" id="toc-semi-join-reverse" class="nav-link" data-scroll-target="#semi-join-reverse">Semi Join (reverse)</a></li>
-  </ul></li>
+  <li><a href="#create-data" id="toc-create-data" class="nav-link active" data-scroll-target="#create-data">Create Data</a></li>
+  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter">Filter</a></li>
+  <li><a href="#filter-1" id="toc-filter-1" class="nav-link" data-scroll-target="#filter-1">Filter</a></li>
+  <li><a href="#count" id="toc-count" class="nav-link" data-scroll-target="#count">Count</a></li>
+  <li><a href="#double-up" id="toc-double-up" class="nav-link" data-scroll-target="#double-up">Double up</a></li>
+  <li><a href="#group" id="toc-group" class="nav-link" data-scroll-target="#group">Group</a></li>
+  <li><a href="#summarise" id="toc-summarise" class="nav-link" data-scroll-target="#summarise">Summarise</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1">Example</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
@@ -167,7 +158,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">R for Medical Research</h1>
-<p class="subtitle lead">Reshape and Join</p>
+<p class="subtitle lead">Filter, group, summarize</p>
 </div>
 
 
@@ -196,217 +187,346 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>Today we will convert data from a long format to a wide format, and join together separate datasets. This completes the basic data manipulation series.</p>
-</section>
-<section id="load-data" class="level1">
-<h1>Load Data</h1>
-<section id="demographics" class="level2">
-<h2 class="anchored" data-anchor-id="demographics">Demographics</h2>
-<p>We will use this toy dataset.</p>
-<div class="columns">
-<div class="column">
+<section id="create-data" class="level2">
+<h2 class="anchored" data-anchor-id="create-data">Create Data</h2>
+<p>Recall this data from last time.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>id <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"id"</span>, <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>))</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>dob <span class="ot">&lt;-</span> </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample</span>(<span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">'1999/01/01'</span>),</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">as.Date</span>(<span class="st">'2000/01/01'</span>),</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">by=</span><span class="st">"day"</span>), <span class="dv">6</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>dod <span class="ot">&lt;-</span> </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample</span>(<span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">'2016/01/01'</span>),</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>             <span class="fu">as.Date</span>(<span class="st">'2017/01/01'</span>),</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">by=</span><span class="st">"day"</span>), <span class="dv">6</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>weight <span class="ot">&lt;-</span> </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">6</span>, <span class="at">mean =</span> <span class="dv">170</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>demo <span class="ot">&lt;-</span> </span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(id, dob, dod, weight) <span class="sc">|&gt;</span> </span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># id6 lost to follow-up</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column">
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 4
-  id    dob        dod        weight
-  &lt;chr&gt; &lt;date&gt;     &lt;date&gt;      &lt;dbl&gt;
-1 id1   1999-06-28 2016-08-16   167.
-2 id2   1999-01-14 2016-08-31   168.
-3 id3   1999-07-14 2016-01-14   176.
-4 id4   1999-11-02 2016-06-01   172.
-5 id5   1999-04-28 2016-03-30   172.</code></pre>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="trial-data" class="level2">
-<h2 class="anchored" data-anchor-id="trial-data">Trial data</h2>
-<p>And this toy dataset.</p>
-<div class="columns">
-<div class="column">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>id2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(id, <span class="at">times =</span> <span class="dv">2</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>trt <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"trt"</span>, <span class="st">"crl"</span>), </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">times =</span> <span class="dv">6</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>vst <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"vst1"</span>, <span class="st">"vst2"</span>), </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">each =</span> <span class="dv">6</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">1</span>), </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>         <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">1</span>), </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>         <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="dv">12</span>, <span class="dv">1</span>), </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>         <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="dv">17</span>, <span class="dv">1</span>))</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>trial <span class="ot">&lt;-</span> <span class="fu">tibble</span>(id2, vst, trt) <span class="sc">|&gt;</span> </span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(vst, trt) <span class="sc">|&gt;</span> </span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">res =</span> res) <span class="sc">|&gt;</span> </span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(vst, id2)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>trial[<span class="dv">12</span>, <span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column">
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 12 × 4
-   id2   vst   trt     res
-   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
- 1 id1   vst1  trt    8.03
- 2 id2   vst1  crl    9.44
- 3 id3   vst1  trt   10.7 
- 4 id4   vst1  crl   11.8 
- 5 id5   vst1  trt    9.53
- 6 id6   vst1  crl   10.5 
- 7 id1   vst2  trt   16.3 
- 8 id2   vst2  crl   10.9 
- 9 id3   vst2  trt   16.4 
-10 id4   vst2  crl   11.8 
-11 id5   vst2  trt   15.3 
-12 id6   vst2  crl   NA   </code></pre>
-</div>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="reshape" class="level1">
-<h1>Reshape</h1>
-<section id="long-to-wide-pivot" class="level2">
-<h2 class="anchored" data-anchor-id="long-to-wide-pivot">Long to Wide (Pivot)</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>trial <span class="sc">|&gt;</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> id2, <span class="at">names_from =</span> vst, <span class="at">values_from =</span> res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">c</span>(<span class="st">"id01"</span>, <span class="st">"id02"</span>, <span class="st">"id03"</span>, <span class="st">"id01"</span>, <span class="st">"id02"</span>, <span class="st">"id03"</span>),     </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">v1 =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"F"</span>, <span class="st">"M"</span>), <span class="dv">2</span>),                          </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">v2 =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">2</span>) </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
-  id2    vst1  vst2
-  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 id1    8.03  16.3
-2 id2    9.44  10.9
-3 id3   10.7   16.4
-4 id4   11.8   11.8
-5 id5    9.53  15.3
-6 id6   10.5   NA  </code></pre>
+  id    v1       v2
+  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+1 id01  M         0
+2 id02  F         2
+3 id03  M         4
+4 id01  M         6
+5 id02  F         8
+6 id03  M        10</code></pre>
 </div>
 </div>
-<p>Notice that we loose the treatment variable.</p>
 </section>
-<section id="calculate" class="level2">
-<h2 class="anchored" data-anchor-id="calculate">Calculate</h2>
+<section id="filter" class="level2">
+<h2 class="anchored" data-anchor-id="filter">Filter</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>trial_wide <span class="ot">&lt;-</span> trial <span class="sc">|&gt;</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> id2, <span class="at">names_from =</span> vst, <span class="at">values_from =</span> res) <span class="sc">|&gt;</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff_vst =</span> vst2 <span class="sc">-</span> vst1)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>trial_wide</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 4
-  id2    vst1  vst2 diff_vst
-  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
-1 id1    8.03  16.3  8.24   
-2 id2    9.44  10.9  1.49   
-3 id3   10.7   16.4  5.67   
-4 id4   11.8   11.8 -0.00489
-5 id5    9.53  15.3  5.79   
-6 id6   10.5   NA   NA      </code></pre>
+<pre><code># A tibble: 6 × 3
+  id    v1       v2
+  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+1 id01  M         0
+2 id02  F         2
+3 id03  M         4
+4 id01  M         6
+5 id02  F         8
+6 id03  M        10</code></pre>
 </div>
 </div>
-<p>Now we can add on the difference, and save the result to a new variable.</p>
-</section>
-</section>
-<section id="join" class="level1">
-<h1>Join</h1>
-<section id="left-join" class="level2">
-<h2 class="anchored" data-anchor-id="left-join">Left Join</h2>
+</div><div class="column" style="width:70%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>demo <span class="sc">|&gt;</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(trial_wide, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span> <span class="ot">=</span> <span class="st">"id2"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(v1 <span class="sc">==</span> <span class="st">"M"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 7
-  id    dob        dod        weight  vst1  vst2 diff_vst
-  &lt;chr&gt; &lt;date&gt;     &lt;date&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
-1 id1   1999-06-28 2016-08-16   167.  8.03  16.3  8.24   
-2 id2   1999-01-14 2016-08-31   168.  9.44  10.9  1.49   
-3 id3   1999-07-14 2016-01-14   176. 10.7   16.4  5.67   
-4 id4   1999-11-02 2016-06-01   172. 11.8   11.8 -0.00489
-5 id5   1999-04-28 2016-03-30   172.  9.53  15.3  5.79   </code></pre>
+<pre><code># A tibble: 4 × 3
+  id    v1       v2
+  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+1 id01  M         0
+2 id03  M         4
+3 id01  M         6
+4 id03  M        10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"id01"</span>, <span class="st">"id02"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  id    v1       v2
+  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+1 id01  M         0
+2 id02  F         2
+3 id01  M         6
+4 id02  F         8</code></pre>
 </div>
 </div>
-<p>Usually you have one main dataset, and you want to add to it. You don’t care about everything in the other dataset. This is a “left join,” and the most common.</p>
+</div>
+</div>
 </section>
-<section id="full-join" class="level2">
-<h2 class="anchored" data-anchor-id="full-join">Full Join</h2>
+<section id="filter-1" class="level2">
+<h2 class="anchored" data-anchor-id="filter-1">Filter</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>demo <span class="sc">|&gt;</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(trial_wide, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span> <span class="ot">=</span> <span class="st">"id2"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 7
-  id    dob        dod        weight  vst1  vst2 diff_vst
-  &lt;chr&gt; &lt;date&gt;     &lt;date&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
-1 id1   1999-06-28 2016-08-16   167.  8.03  16.3  8.24   
-2 id2   1999-01-14 2016-08-31   168.  9.44  10.9  1.49   
-3 id3   1999-07-14 2016-01-14   176. 10.7   16.4  5.67   
-4 id4   1999-11-02 2016-06-01   172. 11.8   11.8 -0.00489
-5 id5   1999-04-28 2016-03-30   172.  9.53  15.3  5.79   
-6 id6   NA         NA            NA  10.5   NA   NA      </code></pre>
+<pre><code># A tibble: 6 × 3
+  id    v1       v2
+  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+1 id01  M         0
+2 id02  F         2
+3 id03  M         4
+4 id01  M         6
+5 id02  F         8
+6 id03  M        10</code></pre>
 </div>
 </div>
-<p>Full joins treat both datasets as equal, and includes all data from both sets. Notice <code>id6</code> shows up again.</p>
+</div><div class="column" style="width:70%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="fu">str_detect</span>(id, <span class="st">"03"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  id    v1       v2
+  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+1 id03  M         4
+2 id03  M        10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df_mod <span class="ot">&lt;-</span> df</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df_mod<span class="sc">$</span>v1[<span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>df_mod <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(v1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  id    v1       v2
+  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+1 id01  &lt;NA&gt;      6
+2 id02  &lt;NA&gt;      8
+3 id03  &lt;NA&gt;     10</code></pre>
+</div>
+</div>
+</div>
+</div>
 </section>
-<section id="anti-join-reverse" class="level2">
-<h2 class="anchored" data-anchor-id="anti-join-reverse">Anti Join (reverse)</h2>
+<section id="count" class="level2">
+<h2 class="anchored" data-anchor-id="count">Count</h2>
+<p>Half of data science is counting</p>
+<div class="columns">
+<div class="column" style="width:30%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>trial_wide <span class="sc">|&gt;</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(demo, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id2"</span> <span class="ot">=</span> <span class="st">"id"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 4
-  id2    vst1  vst2 diff_vst
-  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
-1 id6    10.5    NA       NA</code></pre>
+<pre><code># A tibble: 6 × 3
+  id    v1       v2
+  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+1 id01  M         0
+2 id02  F         2
+3 id03  M         4
+4 id01  M         6
+5 id02  F         8
+6 id03  M        10</code></pre>
 </div>
 </div>
-<p>Here, we are getting all the rows in <code>trial_wide</code> that are <em>not</em> in <code>demo</code>.</p>
+</div><div class="column" style="width:70%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(v1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  v1        n
+  &lt;chr&gt; &lt;int&gt;
+1 F         2
+2 M         4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(v1, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  v1        n
+  &lt;chr&gt; &lt;int&gt;
+1 M         4
+2 F         2</code></pre>
+</div>
+</div>
+</div>
+</div>
 </section>
-<section id="semi-join-reverse" class="level2">
-<h2 class="anchored" data-anchor-id="semi-join-reverse">Semi Join (reverse)</h2>
+<section id="double-up" class="level2">
+<h2 class="anchored" data-anchor-id="double-up">Double up</h2>
+<p>Surprisingly often, you want to count on counts. But this comes in with big datasets.</p>
+<div class="columns">
+<div class="column" style="width:30%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>trial_wide <span class="sc">|&gt;</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(demo, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id2"</span> <span class="ot">=</span> <span class="st">"id"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 4
-  id2    vst1  vst2 diff_vst
-  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
-1 id1    8.03  16.3  8.24   
-2 id2    9.44  10.9  1.49   
-3 id3   10.7   16.4  5.67   
-4 id4   11.8   11.8 -0.00489
-5 id5    9.53  15.3  5.79   </code></pre>
+<pre><code># A tibble: 6 × 3
+  id    v1       v2
+  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+1 id01  M         0
+2 id02  F         2
+3 id03  M         4
+4 id01  M         6
+5 id02  F         8
+6 id03  M        10</code></pre>
 </div>
 </div>
-<p>Here, we are getting only the rows in <code>trial_wide</code> that are also in <code>demo</code> (but not the columns from it)</p>
+</div><div class="column" style="width:70%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(id) <span class="sc">|&gt;</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Storing counts in `nn`, as `n` already present in input
+ℹ Use `name = "new_name"` to pick a new name.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+      n    nn
+  &lt;int&gt; &lt;int&gt;
+1     2     3</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="group" class="level2">
+<h2 class="anchored" data-anchor-id="group">Group</h2>
+<p>By themselves, groups don’t do much.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">group_by</span>(v1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+# Groups:   v1 [2]
+  id    v1       v2
+  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+1 id01  M         0
+2 id02  F         2
+3 id03  M         4
+4 id01  M         6
+5 id02  F         8
+6 id03  M        10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">group_by</span>(id, v1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+# Groups:   id, v1 [3]
+  id    v1       v2
+  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+1 id01  M         0
+2 id02  F         2
+3 id03  M         4
+4 id01  M         6
+5 id02  F         8
+6 id03  M        10</code></pre>
+</div>
+</div>
+</section>
+<section id="summarise" class="level2">
+<h2 class="anchored" data-anchor-id="summarise">Summarise</h2>
+<p>We use groups with other verbs. Foremost, <code>summarize</code>.</p>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  id    v1       v2
+  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+1 id01  M         0
+2 id02  F         2
+3 id03  M         4
+4 id01  M         6
+5 id02  F         8
+6 id03  M        10</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:70%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg =</span> <span class="fu">mean</span>(v2, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+    avg
+  &lt;dbl&gt;
+1     5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(v1) <span class="sc">|&gt;</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">average =</span> <span class="fu">mean</span>(v2, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  v1    average
+  &lt;chr&gt;   &lt;dbl&gt;
+1 F           5
+2 M           5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">|&gt;</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(v2, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  id     mean
+  &lt;chr&gt; &lt;dbl&gt;
+1 id01      3
+2 id02      5
+3 id03      7</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="example" class="level2">
+<h2 class="anchored" data-anchor-id="example">Example</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>medicaldata<span class="sc">::</span>strep_tb <span class="sc">|&gt;</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(patient_id, arm, gender, dose_strep_g, rad_num)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 107 × 5
+   patient_id arm     gender dose_strep_g rad_num
+   &lt;chr&gt;      &lt;fct&gt;   &lt;fct&gt;         &lt;dbl&gt;   &lt;dbl&gt;
+ 1 0001       Control M                 0       6
+ 2 0002       Control F                 0       5
+ 3 0003       Control F                 0       5
+ 4 0004       Control M                 0       5
+ 5 0005       Control F                 0       5
+ 6 0006       Control M                 0       6
+ 7 0007       Control F                 0       5
+ 8 0008       Control M                 0       5
+ 9 0009       Control F                 0       5
+10 0010       Control M                 0       5
+# ℹ 97 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="example-1" class="level2">
+<h2 class="anchored" data-anchor-id="example-1">Example</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>medicaldata<span class="sc">::</span>strep_tb <span class="sc">|&gt;</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(arm, gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  arm          gender     n
+  &lt;fct&gt;        &lt;fct&gt;  &lt;int&gt;
+1 Streptomycin F         31
+2 Streptomycin M         24
+3 Control      F         28
+4 Control      M         24</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>medicaldata<span class="sc">::</span>strep_tb <span class="sc">|&gt;</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(arm, gender) <span class="sc">|&gt;</span> </span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_rad_num =</span> <span class="fu">mean</span>(rad_num), </span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_rad_num =</span> <span class="fu">sd</span>(rad_num)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'arm'. You can override using the `.groups`
+argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+# Groups:   arm [2]
+  arm          gender mean_rad_num sd_rad_num
+  &lt;fct&gt;        &lt;fct&gt;         &lt;dbl&gt;      &lt;dbl&gt;
+1 Streptomycin F              4.26       1.93
+2 Streptomycin M              5.21       1.28
+3 Control      F              3.07       1.70
+4 Control      M              3.21       1.79</code></pre>
+</div>
+</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

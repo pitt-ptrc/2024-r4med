@@ -6,59 +6,24 @@ date: "February 20, 2024"
 
 ## Updates
 
-<!-- Jan. 4 -->
+**Feb. 21**
 
-<!-- - Session 6 videos are posted.  -->
+We secured a room for most days, E1248 BST.
 
-<!-- - Our final session, Basic Tables and Reproducible Publication, will tie everything together.  -->
+I decided to create a new project space.
 
-<!-- Jan. 3 -->
+**Feb. 28**
 
-<!-- - Session 5 videos are posted. It turned out to be a bit more advanced. I will record a simpler video if anyone got lost. -->
-
-<!-- - Slides for session 6, basic modeling, are available -->
-
-<!-- Dec. 12 -->
-
-<!-- - Session 4 videos are posted -->
-
-<!-- - No slides for Session 5 -->
-
-<!-- Nov. 16: -->
-
-<!-- - Session 3 videos are posted -->
-
-<!-- - In response to feedback, future sessions will be mostly hands-on -->
-
-<!-- - Session 4 slides are posted (shorter). I encourage reviewing them before the session. -->
-
-<!-- - Session 4 is shorter, Nov. 23, 12:30-1 -->
-
-<!-- Nov. 15: -->
-
-<!-- - Session 2 videos are posted -->
-
-<!-- - Nov. 16 slides are posted. -->
-
-<!-- Nov. 4:  -->
-
-<!-- - Session 1 videos are posted -->
-
-<!-- - Nov. 4 and Nov. 9 slides are updated (material covered, and up next) -->
-
-<!-- - Some registrants did not have the passcode to attend on Zoom. Please consult the original announcement or email me (see "contact" above) ahead of time! I will start the next session, Wed, 11/9 at 12 to help anyone with questions. It is easy to catch up! -->
+Sessions 0, 1 videos are posted.
 
 ## Description
 
 This workshop is hosted by the PACCSM Pulmonary Translational Research Core (PTRC). The purpose is to
 
-\- get you familiar enough with R so you can direct further study
-
-\- focus on in-session hands-on exercises with real data
-
-\- provide a work environment so you don't need to install software
-
-\- start with best practices
+-   get you familiar enough with R so you can direct further study
+-   focus on in-session hands-on exercises with real data
+-   provide a work environment so you don't need to install software
+-   start with best practices
 
 The design is flipped so sessions are hands-on while the materials are preparatory and optional.
 
@@ -68,7 +33,7 @@ All the materials we'll use in this workshop are in this RStudio project. You ca
 
 <p class="text-center">
 
-<a class="btn btn-info btn-lg" target="_blank" href="https://rstudio.cloud/content/4697823">{{< fa brands r-project >}}  RStudio.cloud project</a>
+<a class="btn btn-info btn-lg" target="_blank" href="https://posit.cloud/content/7647057">{{< fa brands r-project >}}  posit.cloud project</a>
 
 </p>
 
@@ -78,17 +43,17 @@ This workshop is virtual-first, but we will meet in-person pending location avai
 
 We will use Pitt's Zoom [service](https://pitt.zoom.us/j/97006092281) and make the recordings available internally.
 
-| Date (Weekly) |     | Topic                                     | Room | Slides                 | Links                                                                                                                                                                    |
-|--------|--------|--------|--------|--------|----------------------------------|
-| 02-20-2024    | 0   | Installation, packages, basics, questions | NA   | [web](pres_r4med_data) | [R](https://www.r-project.org/), [RStudio](https://posit.co/download/rstudio-desktop/)                                                                                   |
-| 02-27-2024    | 1   | Clinical trials and data manipulation     |      |                        | [medicaldata](https://higgi13425.github.io/medicaldata/index.html), [dplyr](https://dplyr.tidyverse.org/), [pipe style](https://r4ds.hadley.nz/workflow-style#sec-pipes) |
-| 03-05-2024    | 2   | Table-1s and reports                      |      |                        | [gtsummary](https://www.danieldsjoberg.com/gtsummary/), [quarto](https://quarto.org/)                                                                                    |
-| 03-12-2024    | 3   | EHR data and joining it together          |      |                        | [MIMIC-IV](https://physionet.org/content/mimic-iv-demo/2.2/), [tidyr](https://tidyr.tidyverse.org/)                                                                      |
-| 03-19-2024    | 4   | Summarizing and plotting                  |      |                        | [dplyr](https://dplyr.tidyverse.org/), [ggplot2](https://ggplot2.tidyverse.org/index.html)                                                                               |
-| 03-26-2024    |     | Cancelled                                 |      |                        |                                                                                                                                                                          |
-| 04-02-2024    | 5   | Linear, logistic, and cox models.         |      |                        | survival                                                                                                                                                                 |
-| 04-09-2024    | 6   | Review topics of interest                 |      |                        | ?                                                                                                                                                                        |
-| 04-16-2024    | 7   | basics of scRNAseq, causal inference      |      |                        | Seurat, mediation                                                                                                                                                        |
+| Date (Weekly) |     | Topic                                     | Room      | Slides                                           | Links                                                                                                                                                                    | Video                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+|---------------|-----|-------------------------------------------|-----------|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 02-20-2024    | 0   | Installation, packages, basics, questions | NA        | [Post](pres_r4med_rstudio/)                      | [R](https://www.r-project.org/), [RStudio](https://posit.co/download/rstudio-desktop/)                                                                                   | [Pitt](https://pitt.zoom.us/rec/share/dDz-FnEBd3iXiR_6YFWRsizs9sfL8kIWV405qYDYOjfBstET-Vdg3p4P1j0m62K9.-I1Ceur6pHRozPem), [UPMC](https://upmchs-my.sharepoint.com/:v:/g/personal/broermanmj_upmc_edu/EVAyGJqsQnxOhGfSErqmIaUBYQD5WunJpbq16htK5B3jjA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=UjzGc0) |
+| 02-27-2024    | 1   | Clinical trials and data manipulation     | E1248 BST | [Pre](pres_r4med_data/), [Post](pres_r4med_vec/) | [medicaldata](https://higgi13425.github.io/medicaldata/index.html), [dplyr](https://dplyr.tidyverse.org/), [pipe style](https://r4ds.hadley.nz/workflow-style#sec-pipes) | [Pitt](https://pitt.zoom.us/rec/share/bi-xXeGb3HiIjsWlj-YcUD0hdAhhI09fbCwKTguIYCvzEJvk_6jlYY9GXN98u5cn.adISKQMN6RRMmZKv), [UPMC](https://upmchs-my.sharepoint.com/:v:/g/personal/broermanmj_upmc_edu/EQFa1ZsrN-5EjNazl-SjjdoBAojsWkwNhxhqLjYyawZ63w?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=3RxPJu) |
+| 03-05-2024    | 2   | Tables and reports                        | E1248 BST | [Pre](pres_r4med_fgs/)                           | [gtsummary](https://www.danieldsjoberg.com/gtsummary/), [quarto](https://quarto.org/)                                                                                    | Pitt, UPMC                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| 03-12-2024    | 3   | EHR data and joining it together          | E1248 BST | [Pre](pres_r4med_shape/)                         | [MIMIC-IV](https://physionet.org/content/mimic-iv-demo/2.2/), [tidyr](https://tidyr.tidyverse.org/)                                                                      | Pitt, UPMC                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| 03-19-2024    | 4   | Summarizing and plotting                  | E1248 BST |                                                  | [dplyr](https://dplyr.tidyverse.org/), [ggplot2](https://ggplot2.tidyverse.org/index.html)                                                                               | Pitt, UPMC                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| 03-26-2024    |     | Cancelled                                 |           |                                                  |                                                                                                                                                                          |                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| 04-02-2024    | 5   | Linear, logistic, and cox models.         | E1248 BST |                                                  | survival                                                                                                                                                                 | Pitt, UPMC                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| 04-09-2024    | 6   | Review topics of interest                 | E1248 BST |                                                  | ?                                                                                                                                                                        | Pitt, UPMC                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| 04-16-2024    | 7   | basics of scRNAseq, causal inference      | E1248 BST |                                                  | Seurat, mediation                                                                                                                                                        | Pitt, UPMC                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 
 ## Registration
 

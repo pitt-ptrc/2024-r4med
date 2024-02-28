@@ -1,0 +1,172 @@
+---
+title: "R for Medical Research"
+subtitle: "Filter, group, summarize"
+author: "Matt Broerman"
+date: "October 10, 2022"
+format:
+  revealjs: 
+    slide-number: true
+    preview-links: auto
+    theme: [simple, custom.scss]
+execute:
+  echo: true
+---
+
+```{r include=FALSE}
+library(tidyverse)
+```
+
+## Create Data
+
+Recall this data from last time.
+
+```{r}
+df <- tibble(
+  id = c("id01", "id02", "id03", "id01", "id02", "id03"),     
+  v1 = rep(c("M", "F", "M"), 2),                          
+  v2 = seq(0, 10, by = 2) 
+)
+
+df
+```
+
+
+## Filter
+
+::::{.columns}
+:::{.column width="30%"}
+
+```{r}
+df
+```
+:::
+:::{.column width="70%"}
+```{r}
+df |> 
+  filter(v1 == "M")
+
+df %>% filter(id %in% c("id01", "id02"))
+```
+:::
+::::
+
+## Filter
+
+
+::::{.columns}
+:::{.column width="30%"}
+
+```{r}
+df
+```
+:::
+:::{.column width="70%"}
+```{r}
+df |> filter(str_detect(id, "03"))
+
+df_mod <- df
+df_mod$v1[4:6] <- NA
+
+df_mod |> filter(is.na(v1))
+```
+:::
+::::
+
+
+## Count
+
+Half of data science is counting
+
+::::{.columns}
+:::{.column width="30%"}
+
+```{r}
+df
+```
+:::
+:::{.column width="70%"}
+```{r}
+df |> 
+  count(v1)
+
+df |> 
+  count(v1, sort = TRUE)
+```
+:::
+::::
+
+## Double up
+
+Surprisingly often, you want to count on counts. But this comes in with big datasets.
+
+::::{.columns}
+:::{.column width="30%"}
+
+```{r}
+df
+```
+:::
+:::{.column width="70%"}
+```{r}
+df |> 
+  count(id) |> 
+  count(n)
+```
+:::
+::::
+
+## Group
+
+By themselves, groups don't do much.
+```{r}
+df |> group_by(v1)
+
+df |> group_by(id, v1)
+```
+
+## Summarise
+
+We use groups with other verbs. Foremost, `summarize`. 
+
+::::{.columns}
+:::{.column width="30%"}
+
+```{r}
+df
+```
+:::
+:::{.column width="70%"}
+```{r}
+df |> 
+  summarize(avg = mean(v2, na.rm = TRUE))
+df |> 
+  group_by(v1) |> 
+  summarise(average = mean(v2, na.rm = TRUE))
+df |> 
+  group_by(id) |> 
+  summarise(mean = mean(v2, na.rm = TRUE))
+```
+:::
+::::
+
+
+## Example
+
+```{r}
+medicaldata::strep_tb |>
+  select(patient_id, arm, gender, dose_strep_g, rad_num)
+```
+
+## Example
+
+```{r}
+medicaldata::strep_tb |> 
+  count(arm, gender)
+
+medicaldata::strep_tb |> 
+  group_by(arm, gender) |> 
+  summarise(
+    mean_rad_num = mean(rad_num), 
+    sd_rad_num = sd(rad_num)
+  )
+```
