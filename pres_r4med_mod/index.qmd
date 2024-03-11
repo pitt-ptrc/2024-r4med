@@ -1,8 +1,8 @@
 ---
-title: "R for Medical Research 6"
+title: "R for Medical Research"
 subtitle: "Basic Modeling"
 author: "Matt Broerman"
-date: "Jan 4, 2022"
+date: today
 format:
   revealjs: 
     slide-number: true
@@ -14,6 +14,7 @@ execute:
 
 ```{r include=FALSE}
 library(tidyverse)
+theme_set(theme_minimal())
 ```
 
 
@@ -22,55 +23,21 @@ library(tidyverse)
 
 Today we will explore the basics of modeling with a toy dataset and show how to compare multiple models in a nice format. 
 
+We will use all of the skills from previous sessions: horizonal and vertical verbs, reshape, joins, tables, and plots. 
+
 
 # Load Data
 
-## Demographics
-
-We will use this toy dataset.
-
-:::: columns
-
-::: column
-
-```{r}
-set.seed(123)
-
-id <- paste0("id", seq(1:6))
-dob <- 
-  sample(seq(as.Date('1999/01/01'),
-             as.Date('2000/01/01'),
-             by="day"), 6)
-dod <- 
-  sample(seq(as.Date('2016/01/01'),
-             as.Date('2017/01/01'),
-             by="day"), 6)
-weight <- 
-  rnorm(n = 6, mean = 170, sd = 5)
-
-demo <- 
-  tibble(id, dob, dod, weight) |> 
-  # id6 lost to follow-up
-  head(5)
-
-```
-:::
-::: column
-```{r echo=FALSE}
-demo
-```
-
-:::
-::::
-
 ## Trial data
 
-And this toy dataset.
+Trial toy dataset.
 
 :::: columns
 
 ::: column
 ```{r}
+set.seed(125)
+id <- paste0("id", seq(1:6))
 id2 <- rep(id, times = 2)
 grp <- rep(c("trt", "crl"), 
            times = 6)
@@ -85,8 +52,6 @@ trial <- tibble(id2, vst, grp) |>
   arrange(vst, grp) |> 
   mutate(res = res) |> 
   arrange(vst, id2)
-
-trial[12, 4] <- NA
 ```
 
 :::
@@ -122,10 +87,20 @@ trial |>
 
 ::: column
 
-Since this is a toy dataset, we know the data generating process. All subjects start at visit one with a test result drawn from $N(10, 1)$ distribution. The control subjects then have a followup visit from $N(12, 1)$, while the treatment subjects are from $N(17, 1)$. One control subject was lost to followup.
+Since this is a toy dataset, we know the "data generating process". All subjects start at visit one with a test result drawn from $N(10, 1)$ distribution. The control subjects then have a followup visit from $N(12, 1)$, while the treatment subjects are from $N(17, 1)$.
+<!-- One control subject was lost to followup. -->
 
 ::: 
 ::::
+
+## Plot
+
+```{r}
+trial |> 
+  ggplot(aes(vst, res, color = grp, label = id2)) +
+  geom_text()
+```
+
 
 # First Model
 
@@ -142,11 +117,20 @@ trial_wide <-
 trial_wide
 ```
 
-## First model 1
+## Plot
+
+```{r}
+trial_wide |> 
+  ggplot(aes(grp, res_diff, color = grp, label = id2)) +
+  geom_text()
+```
+
+
+## First model
 
 Here is the basic syntax for a **l**inear **m**odel. We can save the model to a variable. 
 
-We use a "formula syntax" to write our model down. `res_diff ~ grp` says, predict the mean of the pre-post difference as a function of the group.
+`res_diff ~ grp` says, "predict the mean of the pre-post difference as a function of the group."
 
 ```{r}
 mod1 <- lm(res_diff ~ grp, data = trial_wide)
@@ -154,24 +138,37 @@ mod1 <- lm(res_diff ~ grp, data = trial_wide)
 mod1
 ```
 
+In this case, the `(Intercept)` is the reference class, and `grptrt` (`grp` variable with `trt` class) is the "offset".
 
-## First model 2
-
-Notice that in this short summary, the `lm()` function appends the effect class `trt` (as opposed to the reference class `crl`) to the exposure variable, `grp`, so we get `grptrt`. The coefficient is `r mod1$coefficients[[2]] |> round(2)`. This estimate is close to the "difference of difference" we expect. The difference between
-
-$(N_{vst2,trt}(17, 1) - N_{vst1,trt}(10, 1))$ and
-
-$(N_{vst2,crl}(12, 1) - N_{vst1,crl}(10, 1))$ equals 
-
-$N(5, 4)$
+## First model, plot
 
 ```{r}
-mod1 <- lm(res_diff ~ grp, data = trial_wide)
-
-mod1
+trial_wide |> 
+  ggplot(aes(grp, res_diff, color = grp, label = id2)) +
+  geom_text() +
+  geom_hline(yintercept = mod1$coefficients, lty = 2)
 ```
 
-## Model Object
+## First model, interpretation
+
+:::: columns
+
+::: {.column width="30%"}
+`summary` gives the coefficient estimate error and P-value. Recall that we did the $N(10, 1)$ distribution for `pre`, $N(12, 1)$ for `post` of `crl` and $N(17, 1)$ for `post` of `trt`.
+
+So $12-10 \sim 2$ (`(Intercept)`) and $17-10 + 2 \sim 5$ (`grptrt`). The model recovered the simulation parameters. 
+:::
+::: {.column width="70%"}
+
+```{r}
+summary(mod1)
+```
+
+:::
+
+::::
+
+## First model, object
 
 The model object bundles several pieces of our model. Many of these have "accessor" functions, or you can just use the `$` to access them.
 
@@ -183,19 +180,9 @@ mod1 |> coef()
 mod1$coefficients
 ```
 
-## Summary 1
+## Summary
 
-The most common way to inspect the model is to use the `summary()` function. Note the output is too large.
-
-```{r}
-mod1 |> summary()
-```
-
-## Summary 2
-
-This raises the related issue that in research we often we want to compare many models at once. Maybe we want to see which of many blood labs has the strongest effect on mortality. Or maybe we want to see which model explains the most variation across many subgroups or units.
-
-Out of the box, `R` isn't too great at "workflow" like this. But some great packages make it easy.
+So far, we have one model, one predictor and one coefficient. But often we want to compare many model coefficients or metrics at once. For instance, we could look at the effect of a bunch of blood labs at ICU admission on 30-day mortality. We can do a separate model for each, or treat each as a covariate. In either case, we can use our data manipulation tools to treat *model measures* like *data points*.
 
 # Model measures
 
@@ -208,43 +195,104 @@ There are two basic classes of measures associated with a model:
 
 ## Extract
 
-Each of these can be extracted in a convenient `tibble` form from the model object with the `{broom}` package and the functions `tidy()` and `glance()`. Why bother? Because we can treat our *model measures* like *data measures* and group measures together from multiple models and see how they compare.
+Each of these can be extracted in a convenient `tibble` form from the model object with the `{broom}` package and the functions `tidy()` and `glance()`. 
 
 ```{r}
 library(broom)
 
 tidy(mod1)
-
 glance(mod1)
 ```
 
+We are going to focus on comparing coefficients with `tidy`
+
 # Model, Round 2
 
-## Join on more information
+## Demographics
 
-Let's make a second model. This time we will grab some covariates from the `demo` object. Notice that one `id` is missing information.
+Let's make a second model with more simulated data. 
+
+:::: columns
+
+::: column
+
+```{r}
+set.seed(125)
+
+id <- paste0("id", seq(1:6))
+dob <- 
+  sample(seq(as.Date('1999/01/01'),
+             as.Date('2000/01/01'),
+             by="day"), 6)
+dod <- 
+  sample(seq(as.Date('2016/01/01'),
+             as.Date('2017/01/01'),
+             by="day"), 6)
+weight <- 
+  rnorm(n = 6, mean = 170, sd = 5)
+
+demo <- 
+  tibble(id, dob, dod, weight) |> 
+  mutate(age = (dod - dob)/dyears(1))
+
+```
+:::
+::: column
+```{r echo=FALSE}
+demo |> select(-dod)
+```
+
+:::
+::::
+
+## Plot
+
+Since the data was random, there is no relationship with each other or the `res_diff` data.
+
+```{r}
+demo |> 
+  ggplot(aes(age, weight)) +
+  geom_point()
+```
+
+## Joining
 
 ```{r}
 trial_joint <- 
   trial_wide |> 
-  left_join(demo, by = c("id2" = "id")) |> 
-  mutate(age = (dod - dob)/lubridate::dyears(1))
+  left_join(demo, by = c("id2" = "id"))
 
 trial_joint
 ```
 
 ## Second model
 
-`mod2` is the same, except we are using augmented data, and we are adding the `weight` covariate from the `demo` data. The formula syntax is meant to resemble the mathematical formula.
+`mod2` is the same as `mod1` but we are adding the `weight` and `age` covariates from the `demo` data. We know that there is no relationship with the `demo` variables. Often there are many covariate like this we want to test. 
 
 ```{r}
-mod2 <- lm(res_diff ~ grp + weight, data = trial_joint)
+mod2 <- lm(res_diff ~ grp + weight + age, data = trial_joint)
 
-mod2
+tidy(mod2, conf.int = TRUE)
+```
+
+Notice that at $\alpha = 0.5$, only `grptrt` has a significant `p.value`
+
+## Coefficient plot
+
+We know from `p.value` which estimates matter. But the plot can help us compare the effect size scale at a glance for very many. 
+
+```{r}
+tidy(mod2, conf.int = TRUE) |> 
+  filter(term != "(Intercept)") |> 
+  ggplot(aes(term, estimate, ymin = conf.low, ymax = conf.high)) +
+  geom_errorbar() +
+  geom_point() +
+  geom_hline(yintercept = 0, lty = 2) +
+  coord_flip()
 ```
 
 
-# Digression: other models
+# Supplement: other models
 
 ## Interactions
 
@@ -264,8 +312,6 @@ lm(res_diff ~ grp + weight^2, data = trial_joint)
 lm(res_diff ~ grp + weight + weight^2, data = trial_joint)
 ```
 
-
-
 ## Removing
 
 Finally, the `-` in a formula removes that term.
@@ -274,15 +320,6 @@ Finally, the `-` in a formula removes that term.
 lm(res_diff ~ grp + weight*age - weight:age, data = trial_joint)
 ```
 
-
-## Comparison to Stata
-
-|Stata      | R|
-|:-----------|:------------
-y x1 x2 | y ~ x1 + x2
- y x1,nocons |y ~ 0 + x1|
- y c.x1#c.x2 |y ~ x1:x2|
- y c.x1##c.x2 |y ~ x1*x2|
 
 
 # Model Comparison
@@ -313,19 +350,7 @@ mets
 mets |> select(mod, r.squared, p.value, df)
 ```
 
-## Better style
-
-Creating intermediate variables like `mod1_met` and `mod2_met` make clutter and is usually bad form. A better, more advanced approach is to apply a function on each object in a list. Then we can bind together all the results. More on this later.
-
-```{r}
-list("mod1" = mod1, 
-     "mod2" = mod2) |> 
-  map(tidy) |> 
-  list_rbind(names_to = "mod")
-  
-```
-
-## Presentation 1
+## Presentation
 
 From here, it is very easy to display our models in a variety of formats.
 
@@ -334,14 +359,3 @@ mets |>
   select(mod, r.squared, p.value, df) |> 
   knitr::kable(digits = 3, "html")
 ```
-
-## Presentation 2
-
-From here, it is very easy to display our models in a variety of formats.
-
-```{r}
-coefs |> 
-  ggplot(aes(x = estimate, y = p.value, color = mod, shape = term)) +
-  geom_point(size = 4) 
-```
-

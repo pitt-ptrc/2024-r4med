@@ -1,0 +1,423 @@
+---
+title: "Tutorial: censored models"
+author: "Matt Broerman"
+format: html
+execute: 
+  warning: false
+---
+
+```{r message=FALSE}
+library(rms)
+library(survival)
+library(patchwork)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+```
+
+## Cohort study: fixed start and end
+
+```{r}
+set.seed(125) # Ensure reproducibility
+n <- 500 # Increase sample size for more complexity
+ages <- rnorm(n, mean = 50, sd = 12)
+
+# Simulate non-linear relationship with risk of death
+# Increasing risk with age, but at a non-linear rate
+baseline_hazard <- 0.02
+risk <- exp(0.04 * ages - 0.0005 * ages^2) # Non-linear risk function
+
+# Simulate time to event with non-linear risk
+time_to_event <- rexp(n, rate = 10 * baseline_hazard * risk)
+
+# Assume we're observing the study population for a fixed period of time
+# and marking those who haven't experienced the event by this time as censored
+observation_period <- quantile(time_to_event, 0.85) # 75th percentile as cutoff
+status <- ifelse(time_to_event <= observation_period, 1, 0) # 1 = death, 0 = censored
+time_observed <- pmin(time_to_event, observation_period)
+
+df <- data.frame(risk, act_time = time_to_event, time = time_observed, status, age = ages)
+```
+
+
+```{r}
+# visualize
+df |> 
+  ggplot(aes(age, risk)) +
+  geom_point()
+
+pa <- 
+  df |> 
+  ggplot(aes(age, act_time)) +
+  geom_point(alpha = 0.2, aes(color = factor(status))) +
+  geom_smooth() +
+  # geom_hline(yintercept = observation_period) +
+  labs(title = "Actual") +
+  theme(legend.position = "none") +
+  ylim(0, 20)
+
+po <- 
+  df |> 
+  ggplot(aes(age, time)) +
+  geom_point(alpha = 0.2, aes(color = factor(status))) +
+  geom_smooth() +
+  labs(title = "Observed") +
+  ylim(0, 20)
+
+pa + po
+```
+
+A few things of note:
+
+1. across the range, the mean dropped
+1. across the range, the variance dropped
+1. the bend softened
+1. intuitively, we can imagine a way to do get the censored data to look like the actual, viz. scattering the points upward at the rate we see below the line. 
+
+But this is the simplest case, where the everyone went under observation at the same time, and the study concluded at the same time. 
+
+## Longitudinal study: variable start and end
+
+```{r}
+set.seed(125) # Ensure reproducibility
+n <- 500 # Increased sample size
+ages <- rnorm(n, mean = 50, sd = 10) # Slightly less variability in age
+
+# Non-linear relationship with a stronger signal
+baseline_hazard <- 0.02
+risk <- exp(0.06 * ages - 0.0008 * ages^2) # More pronounced non-linearity
+
+# Simulate entry times and variable follow-up periods
+entry_times <- runif(n, min = 0, max = 3)
+study_end_time <- 5
+
+# Simulate time to event from entry time with non-linear risk, less noise
+time_to_event_from_entry <- rexp(n, rate = 20 * baseline_hazard * risk) # Increased event rate
+
+# Calculate the actual observed times and censoring status
+time_to_event_absolute = entry_times + time_to_event_from_entry
+status = ifelse(time_to_event_absolute <= study_end_time, 1, 0)
+observed_times = pmin(time_to_event_absolute, study_end_time) - entry_times
+
+df <-
+  data.frame(
+    entry_time = entry_times,
+    ent_time = time_to_event_from_entry,
+    abs_time = time_to_event_absolute,
+    time = observed_times,
+    status,
+    age = ages
+  )
+
+```
+
+Notice that the entry time "enter" into the simulation *twice*: once so that affects the censoring, and once so that it is removed from the overall time to event. 
+
+
+```{r}
+# visualize
+df |> 
+  ggplot(aes(entry_time, status)) +
+  geom_point(alpha = 0.2)
+
+df |> 
+  ggplot(aes(age, risk)) +
+  geom_point()
+
+pa <- 
+  df |> 
+  ggplot(aes(age, abs_time, status)) +
+  geom_point(alpha = 0.2, aes(color = factor(status))) +
+  geom_smooth() +
+  labs(title = "Actual") +
+  ylim(0, 10) +
+  theme(legend.position = "none")
+
+po <- 
+  df |> 
+  ggplot(aes(age, time, status)) +
+  geom_point(alpha = 0.2, aes(color = factor(status))) +
+  geom_smooth() +
+  ylim(0, 10) +
+  labs(title = "Observed")
+
+pa + po
+```
+
+Let's just confirm this looks roughly like real data
+
+```{r}
+
+veteran |> 
+  select(time_observed = time, status, ages = age) |> 
+  ggplot(aes(ages, time_observed)) +
+  geom_point(alpha = 0.2, aes(color = factor(status))) +
+  geom_smooth() +
+  labs(title = "Observed")
+
+
+lung |> 
+  select(time_observed = time, status, ages = age) |> 
+  ggplot(aes(ages, time_observed)) +
+  geom_point(alpha = 0.2, aes(color = factor(status))) +
+  geom_smooth() +
+  labs(title = "Observed")
+
+```
+
+Ok, great. 
+
+## Trial study: treatments
+
+```{r}
+set.seed(125) # Ensure reproducibility
+n <- 500
+ages <- rnorm(n, mean = 50, sd = 10)
+
+# Simulate treatment assignment (1 = treatment, 0 = control)
+treatment <- sample(0:1, n, replace = TRUE)
+
+# Non-linear relationship between age and hazard, with treatment effect
+baseline_hazard <- 0.02
+# Adding treatment effect: let's assume treatment cuts the hazard in half for simplicity
+risk <- exp(0.06 * ages - 0.0008 * ages^2) * ifelse(treatment == 1, 0.5, 1)
+
+# Simulate entry times and variable follow-up periods
+entry_times <- runif(n, min = 0, max = 3)
+study_end_time <- 5
+
+# Simulate time to event from entry time with non-linear risk and treatment effect
+time_to_event_from_entry <- rexp(n, rate = 20 * baseline_hazard * risk)
+
+# Calculate the actual observed times and censoring status
+time_to_event_absolute = entry_times + time_to_event_from_entry
+status = ifelse(time_to_event_absolute <= study_end_time, 1, 0)
+observed_times = pmin(time_to_event_absolute, study_end_time) - entry_times
+
+df <-
+  data.frame(
+    treatment,
+    entry_time = entry_times,
+    ent_time = time_to_event_from_entry,
+    abs_time = time_to_event_absolute,
+    time = observed_times,
+    status,
+    age = ages
+  )
+
+```
+
+
+```{r}
+# visualize
+df |> 
+  ggplot(aes(entry_time, status)) +
+  geom_point(alpha = 0.2)
+
+df |> 
+  ggplot(aes(age, risk)) +
+  geom_point()
+
+pa <- 
+  df |> 
+  ggplot(aes(age, abs_time, status)) +
+  geom_point(alpha = 0.2, aes(color = factor(status))) +
+  geom_smooth() +
+  labs(title = "Actual") +
+  ylim(0, 10) +
+  theme(legend.position = "none") +
+  facet_grid(rows = vars(treatment))
+
+po <- 
+  df |> 
+  ggplot(aes(age, time, status)) +
+  geom_point(alpha = 0.2, aes(color = factor(status))) +
+  geom_smooth() +
+  ylim(0, 10) +
+  labs(title = "Observed") +
+  facet_grid(rows = vars(treatment))
+
+
+pa + po
+```
+
+## Modeling
+
+```{r}
+# Prepare for rms modeling
+dd <- datadist(df)
+options(datadist='dd')
+```
+
+### Cox
+
+```{r}
+# Fit a basic Cox model without splines for comparison
+basic_cox_model <- cph(Surv(time, status) ~ age + treatment, data = df)
+basic_cox_model2 <- coxph(Surv(time, status) ~ age + treatment, data = df)
+
+ggplot(Predict(basic_cox_model), sepdiscrete='vertical', nlevels=4,
+       vnames='names')
+```
+
+
+```{r}
+# Fit an enhanced Cox model using RCS for age
+enhanced_cox_model <- cph(Surv(time, status) ~ rcs(age, 3) + treatment, data = df)
+
+ggplot(Predict(enhanced_cox_model), sepdiscrete='vertical', nlevels=4,
+       vnames='names')
+```
+
+
+```{r}
+# Compare models
+anova(basic_cox_model2, enhanced_cox_model)
+
+summary(enhanced_cox_model)
+
+enhanced_cox_model
+```
+
+```{r}
+# Prepare for rms modeling
+dd <- datadist(lung)
+options(datadist='dd')
+
+# Fit an enhanced Cox model using RCS for age
+lung_cox_model <- cph(Surv(time, status) ~ rcs(age, 4) + ph.ecog, data = lung)
+
+ggplot(Predict(lung_cox_model), sepdiscrete='vertical', nlevels=4,
+       vnames='names')
+```
+
+### Move to parametric
+
+```{r}
+library(survival)
+
+# Fitting a Weibull model with quadratic age
+weibull_model <- survreg(Surv(time, status) ~ age + I(age^2) + treatment, data = df, dist = "weibull")
+
+# Assuming 'model' is your fitted survreg model
+age_range <- seq(from = min(df$age), to = max(df$age), by = 0.5)
+new_data_trt <- data.frame(age = age_range, 
+                       treatment = rep(1, length(age_range)), # Example: treatment fixed
+                       age2 = age_range^2) # Include if you used a quadratic term
+                      
+new_data_ctl <- data.frame(age = age_range, 
+                       treatment = rep(0, length(age_range)), # Example: treatment fixed
+                       age2 = age_range^2) # Include if you used a quadratic term
+
+# Predicting survival probabilities
+# For survreg, type = "response" gives the survival time, so we need to convert it if we're looking for survival probabilities
+surv_probs_trt <- predict(weibull_model, newdata = new_data_trt, type = "response")
+surv_probs_ctl <- predict(weibull_model, newdata = new_data_ctl, type = "response")
+
+# Note: The interpretation of these predictions depends on the distribution used in survreg
+
+
+
+# Plotting
+ggplot() +
+  # Plot actual data points; adjust as needed
+  geom_point(data = df, aes(x = age, y = time, color = factor(treatment)), alpha = 0.5) +  
+  geom_line(aes(x = age_range, y = surv_probs_trt), color = "turquoise") +  # Add the fitted line
+  geom_line(aes(x = age_range, y = surv_probs_ctl), color = "salmon") +  # Add the fitted line
+  labs(x = "Age", y = "Survival Time / Probability") +
+  theme_minimal()
+```
+
+
+```{r}
+age_seq <- seq(from = min(df$age), to = max(df$age), by = 1)
+pred_data <- expand.grid(age = age_seq, treatment = mean(df$treatment))
+pred_data$age2 <- pred_data$age^2
+
+pred_data$lp <- predict(weibull_model, newdata = pred_data, type = "lp")
+
+
+ggplot(pred_data, aes(x = age, y = lp)) +
+  geom_line() +
+  labs(x = "Age", y = "Log Hazard", title = "Predicted Log Hazard by Age") +
+  theme_minimal()
+
+```
+
+
+
+```{r}
+
+gamma <- 1 / weibull_model$scale
+lambda <- exp(-(weibull_model$coef[1]) * gamma)
+
+# Example: Calculating hazard for a range of 't' (time) values
+t_values <- seq(from = 0, to = max(df$time), by = 0.1)
+hazard_rates <- (gamma / lambda) * (t_values / lambda)^(gamma - 1)
+
+# Plotting
+plot(t_values, hazard_rates, type = 'l', xlab = 'Time', ylab = 'Hazard Rate',
+     main = 'Estimated Hazard Function over Time')
+
+
+```
+
+
+## Appendix: what are splines doing here?
+```{r}
+age_spline <- rcs(df$age, 3)
+
+age_spline |> 
+  unclass() |> 
+  as_tibble() |> 
+  pivot_longer(cols = !df, values_to = "age_est") |> 
+  ggplot(aes(df, age_est, color = name)) +
+  geom_point() +
+  geom_vline(xintercept = attr(age_spline, "parms"))
+  
+```
+
+```{r}
+simpleRCS2 <- function(x, knots) {
+  # Ensure x is a numeric vector
+  if (!is.numeric(x)) stop("x must be numeric")
+  
+  # Ensure knots is a numeric vector of length 2
+  if (!is.numeric(knots) || length(knots) != 2) stop("knots must be a numeric vector of length 2")
+  
+  # Sort knots to ensure proper order
+  knots <- sort(knots)
+  
+  # Initialize spline components
+  splineComponent1 <- numeric(length(x))
+  splineComponent2 <- numeric(length(x))
+  
+  # Calculate the cubic spline components for the two knots
+  splineComponent1 <- (x - knots[1])^3
+  splineComponent2 <- (x - knots[2])^3
+  
+  # Apply the "restricted" part by setting values to 0 where x is less than the knots
+  splineComponent1[x < knots[1]] <- 0
+  splineComponent2[x < knots[2]] <- 0
+  
+  # Return a matrix with both spline components
+  return(tibble(x = x, sc1 = splineComponent1, sc2 = splineComponent2))
+}
+
+# Example ages
+age <- c(20, 25, 30, 35, 40, 45, 50, 55, 60)
+
+# Choose two knots, say at ages 35 and 50
+knots <- c(35, 50)
+
+# Apply the simple RCS transformation with two knots
+age_transformed <- simpleRCS2(age, knots)
+
+# Print the transformed age values
+age_transformed |> 
+  pivot_longer(!x) |> 
+  ggplot(aes(x, value, color = name)) +
+  geom_point() +
+  geom_vline(xintercept = knots)
+```
+

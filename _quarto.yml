@@ -4,8 +4,7 @@ project:
     - "*.qmd"
     - "!README.md"
     - "!LICENSE.md"
-  resources:
-    - "project.zip"
+    - "!tut_sim_cox.qmd"
 
 website:
   title: "R4Med 2024 workshop"
@@ -14,6 +13,14 @@ website:
     background: "#663171"
     pinned: true
     right:
+      - text: "Tutorials"
+        menu:
+          - text: "Mediation"
+            file: tut_mediation.qmd
+          # - text: "Survival analysis"
+          #   file: tut_sim_cox.qmd
+          - text: "Single-cell with Census"
+            file: tut_sc-cxg-cen.qmd
       - href: "https://pitt.zoom.us/j/96099162214"
         text: Zoom
       - href: "mailto:mjb357@pitt.edu"

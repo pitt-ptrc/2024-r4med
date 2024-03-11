@@ -4,5 +4,6 @@
 .httr-oauth
 .DS_Store
 .quarto
-
+/data/sc_cxg_hcla_full.arrow
 /.quarto/
+/_site/

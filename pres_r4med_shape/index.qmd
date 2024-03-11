@@ -20,7 +20,7 @@ library(tidyverse)
 
 ## Overview
 
-Today we will convert data from a long format to a wide format, and join together separate datasets. This completes the basic data manipulation series.
+Today we will convert data from a long format to a wide format, and join together separate datasets. This completes the basic data manipulation series (horizontal, vertical, reshape and join).
 
 # Load Data
 

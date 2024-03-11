@@ -1,0 +1,299 @@
+---
+title: "R for Medical Research"
+subtitle: "Summarize and Plot"
+author: "Matt Broerman"
+date: today
+format:
+  revealjs: 
+    slide-number: true
+    preview-links: auto
+    theme: [simple, custom.scss]
+execute:
+  echo: true
+---
+
+```{r include=FALSE}
+library(tidyverse)
+theme_set(theme_minimal(base_size = 20))
+```
+
+## Review
+
+We have done selected coverage of 
+
+
+| Type           | Verbs or Functions                                                 | Concept      | Package       |
+|----------------|-----------------------------------------------------------|--------------|---------------|
+| Column        | `select`, `mutate`, `rename`                              | Horizontal   | dplyr         |
+| Row       | `count`, `filter`, `group_by`, `summarize`                | Vertical     | dplyr         |
+| Reshape   | `pivot_wider`, `pivot_longer`, `left_join`, `full_join`   | Reshaping    | tidyr, dplyr  |
+| Tables    | `gt`, `kable`, `tbl_summary`                               | Table Creation | gt, knitr, gtsummary    |
+
+## Overview
+
+| Type                 | Verbs or Functions                                | Concept           |
+|----------------------|---------------------------------------------------|-------------------|
+| Basic Components     | `ggplot()`, `aes()`                               | Plot Initialization, Aesthetics |
+| Geometric Objects    | `geom_point()`, `geom_line()`, `geom_bar()`      | Data Representations |
+| Scale Adjustments    | `scale_x_continuous()`, `scale_y_continuous()`   | Axis Scales       |
+| Theme Adjustments    | `theme()`, `theme_minimal()`, `theme_light()`    | Plot Appearance   |
+| Faceting             | `facet_wrap()`, `facet_grid()`                    | Multi-plot Layout |
+
+
+## Create Data
+
+We will start with toy data
+
+:::: columns
+
+::: column
+```{r}
+set.seed(125)
+id <- paste0("id", seq(1:6))
+id2 <- rep(id, times = 2)
+grp <- rep(c("trt", "crl"), 
+           times = 6)
+vst <- rep(c("vst1", "vst2"), 
+           each = 6)
+res <- c(rnorm(3, 10, 1), 
+         rnorm(3, 10, 1), 
+         rnorm(3, 12, 1), 
+         rnorm(3, 17, 1))
+
+trial <- tibble(id2, vst, grp) |> 
+  arrange(vst, grp) |> 
+  mutate(res = res) |> 
+  arrange(vst, id2)
+```
+
+:::
+
+::: column
+
+```{r echo=FALSE}
+trial
+```
+
+::: 
+::::
+
+
+
+## Basic plot
+
+:::: columns
+
+::: {.column width="75%"}
+```{r, }
+ggplot(trial, aes(x = vst, y = res, color = grp)) +
+  geom_point()
+```
+:::
+
+::: {.column width="25%"}
+`ggplot` create the plot from `trial` data, like `read_csv` creates a `tibble` from a file. `aes` defines the *aesthetics* from columns in the data. `geom_point` combines these in certain geometric way. 
+:::
+
+::::
+
+## Basic plot
+
+:::: columns
+
+::: {.column width="75%"}
+```{r}
+ggplot(trial, aes(x = vst, y = res, color = grp)) +
+  geom_col()
+```
+:::
+
+::: {.column width="25%"}
+`ggplot` create the plot from `trial` data, like `read_csv` creates a `tibble` from a file. `aes` defines the *aesthetics* from columns in the data. `geom_col` combines these in certain geometric way. 
+:::
+
+::::
+
+
+## Basic plot
+
+:::: columns
+
+::: {.column width="75%"}
+```{r}
+ggplot(trial, aes(x = vst, y = res, 
+                  color = grp, label = id2)) +
+  geom_text()
+```
+:::
+
+::: {.column width="25%"}
+Notice in this case, we need one more aesthetic to combine: `label`.  You can add this at the top, and if it isn't used, it doesn't matter. 
+
+Also notice that the legend updates automatically. 
+:::
+
+::::
+
+
+## Basic plot
+
+:::: columns
+
+::: {.column width="75%"}
+```{r}
+ggplot(trial, aes(x = vst, y = res, color = grp)) +
+  geom_text(aes(label = id2))
+```
+:::
+
+::: {.column width="25%"}
+Or you can add aesthetics to the `geom` layer that you will use it for, but within an `aes()` call. 
+:::
+
+::::
+
+
+## Basic plot
+
+:::: columns
+
+::: {.column width="75%"}
+```{r}
+ggplot(trial, aes(x = vst, y = res, color = grp)) +
+  geom_text(aes(label = id2), nudge_x = 0.1) +
+  geom_point()
+```
+:::
+
+::: {.column width="25%"}
+Finally, you can add `geom`s together. Notice I needed the second `aes()` to set that input apart from geom-specific settings like `nudge_x`.
+:::
+
+::::
+
+## Intermediate uses
+
+That's the core utility: composable elements with smart automatic layout and legends. 
+
+From here, we can 
+
+- facet plots (divide up by group), 
+- title, 
+- scale the axis, and 
+- tweak the theme. 
+
+## More data
+
+:::: columns
+
+::: {.column width="50%"}
+```{r}
+df <- tibble(
+  id2 = c("id1", "id2", "id3", "id1", "id2", "id3"),     
+  v1 = rep(c("M", "F", "M"), 2),                          
+  v2 = seq(0, 10, by = 2) 
+)
+
+trial_joint <- left_join(trial, df)
+```
+
+:::
+
+::: {.column width="50%"}
+```{r}
+trial_joint
+```
+
+:::
+
+::::
+
+## Facets
+
+:::: columns
+
+::: {.column width="75%"}
+```{r}
+ggplot(trial_joint, aes(x = vst, y = res, color = grp)) +
+  geom_text(aes(label = id2), nudge_x = 0.1) +
+  geom_point() +
+  facet_wrap(vars(v1))
+```
+:::
+
+::: {.column width="25%"}
+`facet_wrap` is the general purpose facet function. Usually you'll start here.
+:::
+
+::::
+
+## Facets
+
+:::: columns
+
+::: {.column width="75%"}
+```{r}
+ggplot(trial_joint, aes(x = vst, y = res)) +
+  geom_text(aes(label = id2), nudge_x = 0.3) +
+  geom_point() +
+  facet_grid(col = vars(v1), rows = vars(grp))
+```
+:::
+
+::: {.column width="25%"}
+`facet_grid` is the next step. Sometimes it make more sense to separate by plot than distinguish by color. 
+:::
+
+::::
+
+## Labels
+
+:::: columns
+
+::: {.column width="75%"}
+```{r}
+ggplot(trial_joint, aes(x = vst, y = res, color = grp)) +
+  geom_text(aes(label = id2), nudge_x = 0.1) +
+  geom_point() +
+  labs(title = "Trial comparison",
+      subtitle = "A little detail",
+      caption = "source: make-believe")
+```
+:::
+
+::: {.column width="25%"}
+`labs` for titles are self-explanatory, but underappreciated for communication
+:::
+
+::::
+
+## Scales
+
+```{r}
+ggplot(trial_joint, aes(x = vst, y = res, color = grp)) +
+  geom_text(aes(label = id2), nudge_x = 0.1) +
+  geom_point() +
+  labs(title = "Trial comparison",
+      subtitle = "A little detail",
+      caption = "source: make-believe") +
+  scale_y_log10()
+```
+
+:::: columns
+
+::: {.column width="75%"}
+```{r}
+ggplot(trial_joint, aes(x = vst, y = res, color = grp)) +
+  geom_text(aes(label = id2), nudge_x = 0.1) +
+  geom_point() +
+  labs(title = "Trial comparison",
+      subtitle = "A little detail",
+      caption = "source: make-believe")
+```
+:::
+
+::: {.column width="25%"}
+`labs` for titles are self-explanatory, but underappreciated for communication
+:::
+
+::::

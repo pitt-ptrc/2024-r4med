@@ -8,7 +8,7 @@
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.450">
+  <meta name="generator" content="quarto-1.4.550">
 
   <meta name="author" content="Matt Broerman">
   <meta name="dcterms.date" content="2022-10-10">
@@ -32,7 +32,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -222,7 +222,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -470,7 +471,7 @@ Matt Broerman
 <h2>With Code</h2>
 <p>Usually, you need to install some packages to get started.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>R</code> is open source software, meaning there is less top-down coordination, and fewer guarantees than from <code>Stata</code>. However, that means that there are typically many more options and many fewer limitations.</p>
 <p>However, you should try to vet (and cite!) the software you use.</p>
@@ -482,13 +483,13 @@ Matt Broerman
 <p>This is nice if you want to work on multiple projects at the same time.</p>
 <p>A session contains loaded libraries.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># several packages</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb2-5"><a href="#cb2-5"></a></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co"># or a meta-package</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="co"># several packages</span></span>
+<span id="cb2-2"><a></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-3"><a></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-4"><a></a><span class="fu">library</span>(stringr)</span>
+<span id="cb2-5"><a></a></span>
+<span id="cb2-6"><a></a><span class="co"># or a meta-package</span></span>
+<span id="cb2-7"><a></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If something crashes, and your session restarts, you will have to reload these.</p>
 </section>
@@ -587,25 +588,25 @@ Matt Broerman
 <section id="state-demo-downstream" class="slide level2">
 <h2>State Demo Downstream</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>tv <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
-<span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a>tv2 <span class="ot">&lt;-</span> tv</span>
-<span id="cb3-4"><a href="#cb3-4"></a></span>
-<span id="cb3-5"><a href="#cb3-5"></a>tv2 <span class="ot">&lt;-</span> <span class="fu">c</span>(tv, <span class="cn">NA</span>)</span>
-<span id="cb3-6"><a href="#cb3-6"></a></span>
-<span id="cb3-7"><a href="#cb3-7"></a>tv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>tv <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb3-2"><a></a></span>
+<span id="cb3-3"><a></a>tv2 <span class="ot">&lt;-</span> tv</span>
+<span id="cb3-4"><a></a></span>
+<span id="cb3-5"><a></a>tv2 <span class="ot">&lt;-</span> <span class="fu">c</span>(tv, <span class="cn">NA</span>)</span>
+<span id="cb3-6"><a></a></span>
+<span id="cb3-7"><a></a>tv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="state-demo-downstream-1" class="slide level2">
 <h2>State Demo Downstream</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>tv <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
-<span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a>tv2 <span class="ot">&lt;-</span> tv</span>
-<span id="cb4-4"><a href="#cb4-4"></a></span>
-<span id="cb4-5"><a href="#cb4-5"></a>tv2 <span class="ot">&lt;-</span> <span class="fu">c</span>(tv, <span class="cn">NA</span>)</span>
-<span id="cb4-6"><a href="#cb4-6"></a></span>
-<span id="cb4-7"><a href="#cb4-7"></a>tv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>tv <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb4-2"><a></a></span>
+<span id="cb4-3"><a></a>tv2 <span class="ot">&lt;-</span> tv</span>
+<span id="cb4-4"><a></a></span>
+<span id="cb4-5"><a></a>tv2 <span class="ot">&lt;-</span> <span class="fu">c</span>(tv, <span class="cn">NA</span>)</span>
+<span id="cb4-6"><a></a></span>
+<span id="cb4-7"><a></a>tv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1 2 3 4</code></pre>
 </div>
@@ -615,25 +616,25 @@ Matt Broerman
 <section id="state-demo-upstream" class="slide level2">
 <h2>State Demo Upstream</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>tv <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
-<span id="cb6-2"><a href="#cb6-2"></a></span>
-<span id="cb6-3"><a href="#cb6-3"></a>tv2 <span class="ot">&lt;-</span> tv</span>
-<span id="cb6-4"><a href="#cb6-4"></a></span>
-<span id="cb6-5"><a href="#cb6-5"></a>tv <span class="ot">&lt;-</span> <span class="fu">c</span>(tv, <span class="dv">5</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb6-6"><a href="#cb6-6"></a></span>
-<span id="cb6-7"><a href="#cb6-7"></a>tv2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>tv <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb6-2"><a></a></span>
+<span id="cb6-3"><a></a>tv2 <span class="ot">&lt;-</span> tv</span>
+<span id="cb6-4"><a></a></span>
+<span id="cb6-5"><a></a>tv <span class="ot">&lt;-</span> <span class="fu">c</span>(tv, <span class="dv">5</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb6-6"><a></a></span>
+<span id="cb6-7"><a></a>tv2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="state-demo-upstream-1" class="slide level2">
 <h2>State Demo Upstream</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>tv <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) <span class="co">#1</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a></span>
-<span id="cb7-3"><a href="#cb7-3"></a>tv2 <span class="ot">&lt;-</span> tv <span class="co">#3</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a></span>
-<span id="cb7-5"><a href="#cb7-5"></a>tv <span class="ot">&lt;-</span> <span class="fu">c</span>(tv, <span class="dv">5</span><span class="sc">:</span><span class="dv">6</span>) <span class="co">#2</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a></span>
-<span id="cb7-7"><a href="#cb7-7"></a>tv2 <span class="co">#4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>tv <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) <span class="co">#1</span></span>
+<span id="cb7-2"><a></a></span>
+<span id="cb7-3"><a></a>tv2 <span class="ot">&lt;-</span> tv <span class="co">#3</span></span>
+<span id="cb7-4"><a></a></span>
+<span id="cb7-5"><a></a>tv <span class="ot">&lt;-</span> <span class="fu">c</span>(tv, <span class="dv">5</span><span class="sc">:</span><span class="dv">6</span>) <span class="co">#2</span></span>
+<span id="cb7-6"><a></a></span>
+<span id="cb7-7"><a></a>tv2 <span class="co">#4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1 2 3 4</code></pre>
 </div>
@@ -657,10 +658,10 @@ Matt Broerman
 <div class="column">
 <p>By default, plots will show in the source pane for Rmarkdown and the “Plots” pane for scripts. You can have them all show in the “Plots” pane by going to <em>Preferences &gt; R Markdown</em> and unchecking <em>Show all output inline</em> .</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>iris <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length,</span>
-<span id="cb9-3"><a href="#cb9-3"></a>             <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>iris <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length,</span>
+<span id="cb9-3"><a></a>             <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb9-4"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column">
 <p><img data-src="images/plot.jpg"></p>
@@ -671,9 +672,9 @@ Matt Broerman
 <h2>Help</h2>
 <p>Finally, if you are having issues, and you don’t want to explore the internet for answers, all functions, and built-in data, come with documentation. Just put <code>?</code> before the item of interest.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>?iris</span>
-<span id="cb10-2"><a href="#cb10-2"></a></span>
-<span id="cb10-3"><a href="#cb10-3"></a>?rnorm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>?iris</span>
+<span id="cb10-2"><a></a></span>
+<span id="cb10-3"><a></a>?rnorm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="columns">
 <div class="column">
@@ -687,8 +688,10 @@ Matt Broerman
 <h2>Demo</h2>
 <p>You’re first reproducible document.</p>
 
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </section></section>
     </div>
@@ -717,7 +720,6 @@ Matt Broerman
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': true,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1016,10 +1018,9 @@ Matt Broerman
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn) {
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1029,8 +1030,17 @@ Matt Broerman
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 

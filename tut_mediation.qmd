@@ -1,0 +1,102 @@
+---
+title: "Tutorial: Mediation Analysis"
+author: "Matt Broerman"
+editor: source
+self-contained: true
+---
+
+```{r message=FALSE}
+library(mediation)
+```
+
+
+## Problem Addressed by Mediation Analysis
+
+In many research scenarios, it's not just the direct effect of X on Y that's of interest, but also how this effect is transmitted through a mediator M. For example, consider a study where a new educational program (X) is believed to improve students' final grades (Y). The program might directly influence grades, or it might work indirectly by increasing study hours (M), which in turn improves grades.
+
+## Naive Approach
+
+The naive approach would be to simply look at the direct relationship between X and Y, ignoring the mediator M. This could be done with a simple linear regression of Y on X. However, this approach fails to uncover the underlying process and can lead to incorrect conclusions about the effectiveness and mechanism of X.
+
+## Mediation Analysis Solution
+
+Mediation analysis, on the other hand, involves three key components:
+
+- Effect of X on M (Path A): This is the relationship between the independent variable and the mediator.
+- Effect of M on Y controlling for X (Path B): This shows how the mediator affects the dependent variable when controlling for the independent variable.
+- Direct Effect of X on Y controlling for M: This is the direct effect of X on Y not through M.
+
+```{mermaid}
+graph TD
+    X[Program] -->|Path A| M[Study Hours]
+    M -->|Path B| Y[Final Grade]
+    X -->|Direct Effect| Y
+```
+
+
+```{r}
+
+set.seed(123) # for reproducibility
+
+# Simulate data
+n <- 1000 # number of observations
+df <- data.frame(program = rbinom(n, 1, 0.5)) # binary variable for program
+
+# Simulating the mediator (study_hours) based on the program
+# Assuming program increases study hours
+df$study_hours <- 5 + 1.5 * df$program + rnorm(n, 0, 2)
+
+# Simulating the final_grade based on both program and study_hours
+# Assuming both program and study_hours positively affect final_grade
+df$final_grade <- 70 + 2 * df$program + 0.5 * df$study_hours + rnorm(n, 0, 10)
+
+# Viewing the first few rows of the dataframe
+head(df)
+```
+
+## Implementation
+
+### Naive
+
+```{r message=FALSE}
+naive_model <- lm(final_grade ~ program, data = df)
+summary(naive_model)
+
+```
+
+### Mediation
+
+```{r}
+# Step 1: Model for the mediator (M)
+mediator_model <- lm(study_hours ~ program, data = df)
+
+# Step 2: Model for the outcome (Y)
+outcome_model <- lm(final_grade ~ program + study_hours, data = df)
+
+# Step 3: Mediation Analysis
+med_analysis <- mediate(mediator_model, outcome_model, 
+                        treat = "program", mediator = "study_hours")
+summary(med_analysis)
+```
+
+## Interpretation
+
+The mediation analysis **partitions** the effect found in the naive model.
+
+#### Naive Effect:
+Estimate: 2.1719. This indicate the apparent direct effect, assuming no mediator exists. 
+
+#### ACME (Average Causal Mediation Effect):
+Estimate: 1.218. This indicates the average change in `final_grade` attributable to the mediation effect of `study_hours.`
+
+#### ADE (Average Direct Effect):
+Estimate: 0.979. This is the average change in `final_grade` that is directly attributable to `program`, not through `study_hours.`
+
+#### Total Effect:
+Estimate: 2.196. This is the combined effect of ADE and ACME.
+
+#### Proportion Mediated:
+Estimate: 0.557. This is the proportion of the total effect that is mediated by `study_hours.`
+
+
+The mediation analysis reveals a significant mediating role of `study_hours` in the relationship between `program` and `final_grade.` While the direct effect of the program on final grades is not statistically significant, the mediation effect through study hours is significant. Additionally, a substantial portion (approximately 55.7%) of the total effect of the program on final grades is mediated through study hours. This suggests that the program's impact on final grades is primarily through its effect on increasing study hours.

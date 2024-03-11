@@ -16,6 +16,12 @@ execute:
 library(tidyverse)
 ```
 
+## Vertical
+
+Last session was horizontal (`select` and `mutate`), this session think vertical (`filter`, `group`, `summarize`).
+
+![](images/dplyr_diag.png)
+
 ## Create Data
 
 Recall this data from last time.
